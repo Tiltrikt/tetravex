@@ -1,0 +1,16 @@
+Hráč nastaví veľkosť hracieho Field, potom sa vygenerujú 2 Field
+danej veľkosti a jedno z nich sa vyplní Tiles tak aby hru mozno 
+bolo vyhrat.
+Generovanie bude prebiehať tak, že počnúc ľavým horným rohom sa
+budú Tiles generovať tak, aby každá nová zapadla do susedných.
+Tymto spôsobom získame zostavené Field a potom všetky Tiles zmiešame
+
+Po každom ťahu v hre sa skontroluje, či je hra vyhraná alebo nie.
+Ak je v poli podľa pravidiel zhromaždený štvorec, hra sa končí a
+hráč je o tom informovaný. Hra sa považuje za vyhratú, ak sú všetky
+susedné čísla rovnaké
+
+Ťah hráča sa vykoná tak, že hráč si vyberie Field stĺpec a riadok,
+z ktorého sa vykoná ťah, a Field, stĺpec a riadok, do ktorého sa
+vykoná ťah. Ak chce hráč presunúť Tile z prázdneho políčka alebo
+na políčko, na ktorom už Tile je, bude o tom informovaný
