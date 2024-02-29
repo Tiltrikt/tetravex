@@ -1,10 +1,14 @@
 package dev.tiltrikt.service;
 
 import dev.tiltrikt.model.Field;
+import org.jetbrains.annotations.NotNull;
 
 public interface GameService {
 
-  void generateField(int size);
+  public void replaceTile(FieldObject fromFieldObject, int fromRow, int fromColumn,
+                          FieldObject toFieldObject, int toRow, int toColumn);
 
-  void replaceTile(Field fromField, int fromRow, int fromColumn, Field toField, int toRow, int toColumn);
+  @NotNull Field getGeneratedField();
+
+  @NotNull Field getSolvedField();
 }
