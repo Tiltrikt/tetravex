@@ -1,6 +1,7 @@
 package dev.tiltrikt.service;
 
-public enum FieldObject {
+public enum FieldPlayground {
   GENERATED,
-  SOLVED
+  PLAYFIELD
 }
+

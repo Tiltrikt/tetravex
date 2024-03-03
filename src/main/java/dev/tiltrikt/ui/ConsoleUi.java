@@ -2,7 +2,7 @@ package dev.tiltrikt.ui;
 
 import dev.tiltrikt.model.Field;
 import dev.tiltrikt.model.Tile;
-import dev.tiltrikt.service.FieldObject;
+import dev.tiltrikt.service.FieldPlayground;
 import dev.tiltrikt.service.GameService;
 import dev.tiltrikt.service.GameServiceImpl;
 import lombok.AccessLevel;
@@ -18,15 +18,14 @@ import java.util.Scanner;
 public class ConsoleUi implements UserInterface {
 
   @NotNull Scanner scanner = new Scanner(System.in);
-  @NonFinal GameService gameService;
+  @NonFinal
+  GameService gameService;
 
   @Override
   public void bootstrap() {
-    System.out.println("Choose filed size: ");
-    System.out.print("t-> ");
-    gameService = new GameServiceImpl(scanner.nextInt());
+    gameService = new GameServiceImpl(getIntInput(2, 5, "field size"));
     show();
-    while (!gameService.getSolvedField().isSolved()) {
+    while (!gameService.isWin()) {
       move();
       show();
     }
@@ -34,39 +33,36 @@ public class ConsoleUi implements UserInterface {
 
   @Override
   public void show() {
-    printField(gameService.getSolvedField());
-    printBorderLine(gameService.getSolvedField().getSize());
+    printField(gameService.getFieldToSolve());
+    printBorderLine(gameService.getFieldToSolve().getSize());
     printField(gameService.getGeneratedField());
   }
 
   @Override
   public void move() {
-    System.out.println("Choose filed from: ");
+    System.out.println("Choose filed from (default ABOVE): ");
     System.out.print("t-> ");
-    scanner.nextLine();
     String fieldFrom = scanner.nextLine();
-    FieldObject fieldObjectFrom = fieldFrom.equalsIgnoreCase("solved") ? FieldObject.SOLVED : FieldObject.GENERATED;
+    FieldPlayground fieldPlaygroundFrom = fieldFrom.equalsIgnoreCase("down") ? FieldPlayground.PLAYFIELD
+            : FieldPlayground.GENERATED;
 
-    System.out.println("Choose row: ");
-    System.out.print("t-> ");
-    int fromRow = scanner.nextInt();
-    System.out.println("Choose column: ");
-    System.out.print("t-> ");
-    int fromColumn = scanner.nextInt();
+    int fromRow = getIntInput(1, gameService.getFieldToSolve().getSize(), "row");
+    int fromColumn = getIntInput(1, gameService.getFieldToSolve().getSize(), "column");
 
-    System.out.println("Choose filed to: ");
+    System.out.println("Choose filed to (default UNDER): ");
     System.out.print("t-> ");
-    scanner.nextLine();
     String fieldTo = scanner.nextLine();
-    FieldObject fieldObjectTo = fieldTo.equalsIgnoreCase("generated") ? FieldObject.GENERATED : FieldObject.SOLVED;
+    FieldPlayground fieldPlaygroundTo = fieldTo.equalsIgnoreCase("above") ? FieldPlayground.GENERATED
+            : FieldPlayground.PLAYFIELD;
 
-    System.out.println("Choose row: ");
-    System.out.print("t-> ");
-    int toRow = scanner.nextInt();
-    System.out.println("Choose column: ");
-    System.out.print("t-> ");
-    int toColumn = scanner.nextInt();
-    gameService.replaceTile(fieldObjectFrom, fromRow, fromColumn, fieldObjectTo, toRow, toColumn);
+    int toRow = getIntInput(1, gameService.getFieldToSolve().getSize(), "row");
+    int toColumn = getIntInput(1, gameService.getFieldToSolve().getSize(), "column");
+
+    try {
+      gameService.replaceTile(fieldPlaygroundFrom, fromRow, fromColumn, fieldPlaygroundTo, toRow, toColumn);
+    } catch (Exception exception) {
+      System.out.println(exception.getClass());
+    }
   }
 
   private void printTileLine(List<Optional<Tile>> tileSubList, int row) {
@@ -79,12 +75,9 @@ public class ConsoleUi implements UserInterface {
 
     System.out.print("   ");
     for (int i = 0; i < size; i++) {
-      if (tileSubList.get(i).isPresent())
-      {
+      if (tileSubList.get(i).isPresent()) {
         System.out.printf(" |\\ %d /| ", tileSubList.get(i).get().getUpNumber());
-      }
-      else
-      {
+      } else {
         System.out.print(" |\\   /| ");
       }
     }
@@ -92,12 +85,9 @@ public class ConsoleUi implements UserInterface {
 
     System.out.printf(" %d ", row + 1);
     for (int i = 0; i < size; i++) {
-      if (tileSubList.get(i).isPresent())
-      {
+      if (tileSubList.get(i).isPresent()) {
         System.out.printf(" |%d # %d| ", tileSubList.get(i).get().getLeftNumber(), tileSubList.get(i).get().getRightNumber());
-      }
-      else
-      {
+      } else {
         System.out.print(" |  #  | ");
       }
     }
@@ -105,12 +95,9 @@ public class ConsoleUi implements UserInterface {
 
     System.out.print("   ");
     for (int i = 0; i < size; i++) {
-      if (tileSubList.get(i).isPresent())
-      {
+      if (tileSubList.get(i).isPresent()) {
         System.out.printf(" |/ %d \\| ", tileSubList.get(i).get().getDownNumber());
-      }
-      else
-      {
+      } else {
         System.out.print(" |/   \\| ");
       }
     }
@@ -145,6 +132,19 @@ public class ConsoleUi implements UserInterface {
     List<Optional<Tile>> solvedTileList = field.getTileList();
     for (int y = 0; y < size; y++) {
       printTileLine(solvedTileList.subList(y * size, (y + 1) * size), y);
+    }
+  }
+
+  private int getIntInput(int min, int max, String text) {
+    while (true) {
+      System.out.printf("Choose %s (between %d and %d): \n", text, min, max);
+      System.out.print("t-> ");
+      try {
+        int input = Integer.parseInt(scanner.nextLine());
+        if (input >= min && input <= max) return input;
+      } catch (NumberFormatException e) {
+        System.out.println("STRING IS NOT INTEGER!!!");
+      }
     }
   }
 }

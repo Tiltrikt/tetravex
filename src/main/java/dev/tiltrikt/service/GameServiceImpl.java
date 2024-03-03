@@ -1,7 +1,7 @@
 package dev.tiltrikt.service;
 
-import dev.tiltrikt.exception.BusyField;
-import dev.tiltrikt.exception.EmptyField;
+import dev.tiltrikt.exception.BusyFieldException;
+import dev.tiltrikt.exception.EmptyFieldException;
 import dev.tiltrikt.model.Field;
 import dev.tiltrikt.model.Tile;
 import lombok.AccessLevel;
@@ -16,32 +16,37 @@ public class GameServiceImpl implements GameService {
 
   @NotNull Field generatedField;
 
-  @NotNull Field solvedField;
+  @NotNull Field fieldToSolve;
 
   public GameServiceImpl(int size) {
-    this.generatedField = Field.getFullField(size);
-    this.solvedField = Field.getEmptyField(size);
+    this.generatedField = Field.getShuffledField(size);
+    this.fieldToSolve = Field.getEmptyField(size);
+  }
+
+  public boolean isWin() {
+    return fieldToSolve.isSolved();
   }
 
 
   @Override
-  public void replaceTile(FieldObject fromFieldObject, int fromRow, int fromColumn,
-                          FieldObject toFieldObject, int toRow, int toColumn) {
+  public void replaceTile(FieldPlayground fromFieldPlayground, int fromRow, int fromColumn,
+                          FieldPlayground toFieldPlayground, int toRow, int toColumn) {
 
-    Field fromField = fromFieldObject == FieldObject.GENERATED ? generatedField : solvedField;
-    Field toField = toFieldObject == FieldObject.GENERATED ? generatedField : solvedField;
+    Field fromField = fromFieldPlayground == FieldPlayground.GENERATED ? generatedField : fieldToSolve;
+    Field toField = toFieldPlayground == FieldPlayground.GENERATED ? generatedField : fieldToSolve;
 
     Tile tile;
     try {
       tile = fromField.removeTile(fromRow - 1, fromColumn - 1);
-    } catch (EmptyField exception) {
+    } catch (EmptyFieldException exception) {
       throw exception;
     }
 
     try {
       toField.addTile(tile, toRow - 1, toColumn - 1);
-    } catch (BusyField exception) {
+    } catch (BusyFieldException exception) {
       fromField.addTile(tile, fromRow - 1, fromColumn - 1);
+      throw exception;
     }
   }
 
