@@ -15,6 +15,12 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
 
+jar {
+    manifest {
+        attributes "Main-Class": "dev.tiltrikt.Main"
+    }
+}
+
 test {
     useJUnitPlatform()
 }

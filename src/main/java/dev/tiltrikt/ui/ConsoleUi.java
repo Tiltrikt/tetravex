@@ -1,8 +1,8 @@
 package dev.tiltrikt.ui;
 
+import dev.tiltrikt.exception.GameException;
 import dev.tiltrikt.model.Field;
 import dev.tiltrikt.model.Tile;
-import dev.tiltrikt.service.FieldPlayground;
 import dev.tiltrikt.service.GameService;
 import dev.tiltrikt.service.GameServiceImpl;
 import lombok.AccessLevel;
@@ -13,6 +13,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
+
+import static dev.tiltrikt.service.GameServiceImpl.FieldPlayground.GENERATED;
+import static dev.tiltrikt.service.GameServiceImpl.FieldPlayground.PLAYFIELD;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ConsoleUi implements UserInterface {
@@ -33,35 +36,29 @@ public class ConsoleUi implements UserInterface {
 
   @Override
   public void show() {
-    printField(gameService.getFieldToSolve());
-    printBorderLine(gameService.getFieldToSolve().getSize());
+    printField(gameService.getPlayField());
+    printBorderLine(gameService.getPlayField().getSize());
     printField(gameService.getGeneratedField());
   }
 
   @Override
   public void move() {
-    System.out.println("Choose filed from (default ABOVE): ");
-    System.out.print("t-> ");
-    String fieldFrom = scanner.nextLine();
-    FieldPlayground fieldPlaygroundFrom = fieldFrom.equalsIgnoreCase("down") ? FieldPlayground.PLAYFIELD
-            : FieldPlayground.GENERATED;
+    String fieldFrom = getStringInput("Choose filed to (default DOWN): ");
+    int fromRow = getIntInput(1, gameService.getPlayField().getSize(), "row");
+    int fromColumn = getIntInput(1, gameService.getPlayField().getSize(), "column");
+    GameServiceImpl.FieldPlayground fieldPlaygroundFrom =
+            fieldFrom.equalsIgnoreCase("above") ? PLAYFIELD : GENERATED;
 
-    int fromRow = getIntInput(1, gameService.getFieldToSolve().getSize(), "row");
-    int fromColumn = getIntInput(1, gameService.getFieldToSolve().getSize(), "column");
-
-    System.out.println("Choose filed to (default UNDER): ");
-    System.out.print("t-> ");
-    String fieldTo = scanner.nextLine();
-    FieldPlayground fieldPlaygroundTo = fieldTo.equalsIgnoreCase("above") ? FieldPlayground.GENERATED
-            : FieldPlayground.PLAYFIELD;
-
-    int toRow = getIntInput(1, gameService.getFieldToSolve().getSize(), "row");
-    int toColumn = getIntInput(1, gameService.getFieldToSolve().getSize(), "column");
+    String fieldTo = getStringInput("Choose filed to (default ABOVE): ");
+    GameServiceImpl.FieldPlayground fieldPlaygroundTo =
+            fieldTo.equalsIgnoreCase("down") ? GENERATED : PLAYFIELD;
+    int toRow = getIntInput(1, gameService.getPlayField().getSize(), "row");
+    int toColumn = getIntInput(1, gameService.getPlayField().getSize(), "column");
 
     try {
       gameService.replaceTile(fieldPlaygroundFrom, fromRow, fromColumn, fieldPlaygroundTo, toRow, toColumn);
-    } catch (Exception exception) {
-      System.out.println(exception.getClass());
+    } catch (GameException exception) {
+      System.out.println(exception.getMessage());
     }
   }
 
@@ -142,9 +139,14 @@ public class ConsoleUi implements UserInterface {
       try {
         int input = Integer.parseInt(scanner.nextLine());
         if (input >= min && input <= max) return input;
-      } catch (NumberFormatException e) {
-        System.out.println("STRING IS NOT INTEGER!!!");
+      } catch (NumberFormatException ignore) {
       }
     }
+  }
+
+  private String getStringInput(String text) {
+    System.out.println(text);
+    System.out.print("t-> ");
+    return scanner.nextLine();
   }
 }

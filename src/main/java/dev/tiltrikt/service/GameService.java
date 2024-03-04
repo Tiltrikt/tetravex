@@ -5,12 +5,12 @@ import org.jetbrains.annotations.NotNull;
 
 public interface GameService {
 
-  void replaceTile(FieldPlayground fromFieldPlayground, int fromRow, int fromColumn,
-                   FieldPlayground toFieldPlayground, int toRow, int toColumn);
+  void replaceTile(GameServiceImpl.FieldPlayground fromFieldPlayground, int fromRow, int fromColumn,
+                   GameServiceImpl.FieldPlayground toFieldPlayground, int toRow, int toColumn);
 
   @NotNull Field getGeneratedField();
 
-  @NotNull Field getFieldToSolve();
+  @NotNull Field getPlayField();
 
   boolean isWin();
 }
