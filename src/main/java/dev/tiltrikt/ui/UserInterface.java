@@ -7,4 +7,6 @@ public interface UserInterface {
   void show();
 
   void move();
+
+  void play();
 }

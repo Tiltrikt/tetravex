@@ -1,4 +1,4 @@
-package dev.tiltrikt.service;
+package dev.tiltrikt.service.game;
 
 import dev.tiltrikt.model.Field;
 import org.jetbrains.annotations.NotNull;

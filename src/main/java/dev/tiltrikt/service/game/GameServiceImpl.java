@@ -1,6 +1,7 @@
-package dev.tiltrikt.service;
+package dev.tiltrikt.service.game;
 
 import dev.tiltrikt.exception.BusyFieldException;
+import dev.tiltrikt.exception.OutOfBoundsException;
 import dev.tiltrikt.factory.FieldFactory;
 import dev.tiltrikt.model.Field;
 import dev.tiltrikt.model.Tile;
@@ -35,6 +36,8 @@ public class GameServiceImpl implements GameService {
     Field fromField = fromFieldPlayground.chooseField(generatedField, playField);
     Field toField = toFieldPlayground.chooseField(generatedField, playField);
 
+    validateMove(fromRow, fromColumn, toRow, toColumn);
+
     Tile tile = fromField.removeTile(fromRow - 1, fromColumn - 1);
 
     try {
@@ -42,6 +45,16 @@ public class GameServiceImpl implements GameService {
     } catch (BusyFieldException exception) {
       fromField.addTile(tile, fromRow - 1, fromColumn - 1);
       throw exception;
+    }
+  }
+
+  private void validateMove(int fromRow, int fromColumn, int toRow, int toColumn) throws OutOfBoundsException {
+    int size = generatedField.getSize();
+    if (    fromRow     < 1 || fromRow    > size ||
+            fromColumn  < 1 || fromColumn > size ||
+            toRow       < 1 || toRow      > size ||
+            toColumn    < 1 || toColumn   > size) {
+      throw new OutOfBoundsException("Out of bounds");
     }
   }
 

@@ -1,10 +1,13 @@
 package dev.tiltrikt.ui;
 
 import dev.tiltrikt.exception.GameException;
+import dev.tiltrikt.exception.RegexNotFoundException;
 import dev.tiltrikt.model.Field;
 import dev.tiltrikt.model.Tile;
-import dev.tiltrikt.service.GameService;
-import dev.tiltrikt.service.GameServiceImpl;
+import dev.tiltrikt.service.game.GameService;
+import dev.tiltrikt.service.game.GameServiceImpl;
+import dev.tiltrikt.service.regex.RegexService;
+import dev.tiltrikt.service.regex.RegexServiceImpl;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
@@ -14,19 +17,41 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-import static dev.tiltrikt.service.GameServiceImpl.FieldPlayground.GENERATED;
-import static dev.tiltrikt.service.GameServiceImpl.FieldPlayground.PLAYFIELD;
+import static dev.tiltrikt.service.game.GameServiceImpl.FieldPlayground.GENERATED;
+import static dev.tiltrikt.service.game.GameServiceImpl.FieldPlayground.PLAYFIELD;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ConsoleUi implements UserInterface {
 
   @NotNull Scanner scanner = new Scanner(System.in);
-  @NonFinal
-  GameService gameService;
+  @NotNull RegexService regexService = new RegexServiceImpl();
+  @NonFinal GameService gameService;
 
   @Override
   public void bootstrap() {
-    gameService = new GameServiceImpl(getIntInput(2, 5, "field size"));
+    int min = 1;
+    int max = 5;
+
+    int size = 0;
+    boolean validInput;
+    do {
+      System.out.printf("Choose field size (between %d and %d): \n", min, max);
+      System.out.print("t-> ");
+      String input = scanner.nextLine();
+      try {
+        size = Integer.parseInt(regexService.getSize(input));
+        validInput = size >= min && size <= max;
+      } catch (RegexNotFoundException ignored){
+        validInput = false;
+      }
+    } while (!validInput);
+
+    gameService = new GameServiceImpl(size);
+    play();
+  }
+
+  @Override
+  public void play() {
     show();
     while (!gameService.isWin()) {
       move();
@@ -43,24 +68,38 @@ public class ConsoleUi implements UserInterface {
 
   @Override
   public void move() {
-    String fieldFrom = getStringInput("Choose filed to (default DOWN): ");
-    int fromRow = getIntInput(1, gameService.getPlayField().getSize(), "row");
-    int fromColumn = getIntInput(1, gameService.getPlayField().getSize(), "column");
-    GameServiceImpl.FieldPlayground fieldPlaygroundFrom =
-            fieldFrom.equalsIgnoreCase("above") ? PLAYFIELD : GENERATED;
-
-    String fieldTo = getStringInput("Choose filed to (default ABOVE): ");
-    GameServiceImpl.FieldPlayground fieldPlaygroundTo =
-            fieldTo.equalsIgnoreCase("down") ? GENERATED : PLAYFIELD;
-    int toRow = getIntInput(1, gameService.getPlayField().getSize(), "row");
-    int toColumn = getIntInput(1, gameService.getPlayField().getSize(), "column");
-
     try {
-      gameService.replaceTile(fieldPlaygroundFrom, fromRow, fromColumn, fieldPlaygroundTo, toRow, toColumn);
-    } catch (GameException exception) {
-      System.out.println(exception.getMessage());
+
+      String userInput = getUserInput(1, gameService.getPlayField().getSize());
+      List<String> inputList = List.of(userInput.split("[/.|,\\\\]"));
+
+      List<String> moveList = regexService.getMove(inputList.getFirst());
+
+      GameServiceImpl.FieldPlayground fromField = moveList.getFirst()
+              .equalsIgnoreCase("above") ? PLAYFIELD : GENERATED;
+      int fromRow = Integer.parseInt(moveList.get(1));
+      int fromColumn = Integer.parseInt(moveList.get(2));
+
+
+      moveList = regexService.getMove(inputList.getLast());
+
+      GameServiceImpl.FieldPlayground toField = moveList.get(1)
+              .equalsIgnoreCase("down") ? GENERATED : PLAYFIELD;
+      int toRow = Integer.parseInt(moveList.get(1));
+      int toColumn = Integer.parseInt(moveList.get(2));
+
+
+      try {
+        gameService.replaceTile(fromField, fromRow, fromColumn, toField, toRow, toColumn);
+      } catch (GameException exception) {
+        System.out.println(exception.getMessage());
+      }
+
+    } catch (RegexNotFoundException exception) {
+      System.out.println("Wrong input, try again");
     }
   }
+
 
   private void printTileLine(List<Optional<Tile>> tileSubList, int row) {
     int size = tileSubList.size();
@@ -132,21 +171,9 @@ public class ConsoleUi implements UserInterface {
     }
   }
 
-  private int getIntInput(int min, int max, String text) {
-    while (true) {
-      System.out.printf("Choose %s (between %d and %d): \n", text, min, max);
-      System.out.print("t-> ");
-      try {
-        int input = Integer.parseInt(scanner.nextLine());
-        if (input >= min && input <= max) return input;
-      } catch (NumberFormatException ignore) {
-      }
-    }
-  }
-
-  private String getStringInput(String text) {
-    System.out.println(text);
-    System.out.print("t-> ");
+  private String getUserInput(int min, int max) {
+    System.out.printf("Choose field (default DOWN), row (between %d and %d), column," +
+            " Field (default ABOVE), row, column)\n", min, max);
     return scanner.nextLine();
   }
 }
