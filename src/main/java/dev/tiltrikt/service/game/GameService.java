@@ -5,8 +5,8 @@ import org.jetbrains.annotations.NotNull;
 
 public interface GameService {
 
-  void replaceTile(GameServiceImpl.FieldPlayground fromFieldPlayground, int fromRow, int fromColumn,
-                   GameServiceImpl.FieldPlayground toFieldPlayground, int toRow, int toColumn);
+  void replaceTile(FieldType fromFieldPlayground, int fromRow, int fromColumn,
+                   FieldType toFieldPlayground, int toRow, int toColumn);
 
   @NotNull Field getGeneratedField();
 

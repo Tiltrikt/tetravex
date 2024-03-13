@@ -30,13 +30,11 @@ public class GameServiceImpl implements GameService {
   }
 
   @Override
-  public void replaceTile(FieldPlayground fromFieldPlayground, int fromRow, int fromColumn,
-                          FieldPlayground toFieldPlayground, int toRow, int toColumn) {
+  public void replaceTile(FieldType fromFieldPlayground, int fromRow, int fromColumn,
+                          FieldType toFieldPlayground, int toRow, int toColumn) {
 
     Field fromField = fromFieldPlayground.chooseField(generatedField, playField);
     Field toField = toFieldPlayground.chooseField(generatedField, playField);
-
-    validateMove(fromRow, fromColumn, toRow, toColumn);
 
     Tile tile = fromField.removeTile(fromRow - 1, fromColumn - 1);
 
@@ -48,30 +46,4 @@ public class GameServiceImpl implements GameService {
     }
   }
 
-  private void validateMove(int fromRow, int fromColumn, int toRow, int toColumn) throws OutOfBoundsException {
-    int size = generatedField.getSize();
-    if (    fromRow     < 1 || fromRow    > size ||
-            fromColumn  < 1 || fromColumn > size ||
-            toRow       < 1 || toRow      > size ||
-            toColumn    < 1 || toColumn   > size) {
-      throw new OutOfBoundsException("Out of bounds");
-    }
-  }
-
-  public enum FieldPlayground {
-    GENERATED {
-      @Override
-      public Field chooseField(Field generatedField, Field playField) {
-        return generatedField;
-      }
-    },
-    PLAYFIELD {
-      @Override
-      public Field chooseField(Field generatedField, Field playField) {
-        return playField;
-      }
-    };
-
-    public abstract Field chooseField(Field generatedField, Field playField);
-  }
 }

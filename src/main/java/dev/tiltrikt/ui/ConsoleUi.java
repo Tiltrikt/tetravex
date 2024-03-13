@@ -1,9 +1,11 @@
 package dev.tiltrikt.ui;
 
 import dev.tiltrikt.exception.GameException;
+import dev.tiltrikt.exception.OutOfBoundsException;
 import dev.tiltrikt.exception.RegexNotFoundException;
 import dev.tiltrikt.model.Field;
 import dev.tiltrikt.model.Tile;
+import dev.tiltrikt.service.game.FieldType;
 import dev.tiltrikt.service.game.GameService;
 import dev.tiltrikt.service.game.GameServiceImpl;
 import dev.tiltrikt.service.regex.RegexService;
@@ -17,8 +19,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-import static dev.tiltrikt.service.game.GameServiceImpl.FieldPlayground.GENERATED;
-import static dev.tiltrikt.service.game.GameServiceImpl.FieldPlayground.PLAYFIELD;
+import static dev.tiltrikt.service.game.FieldType.GENERATED;
+import static dev.tiltrikt.service.game.FieldType.PLAYFIELD;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ConsoleUi implements UserInterface {
@@ -75,19 +77,17 @@ public class ConsoleUi implements UserInterface {
 
       List<String> moveList = regexService.getMove(inputList.getFirst());
 
-      GameServiceImpl.FieldPlayground fromField = moveList.getFirst()
-              .equalsIgnoreCase("above") ? PLAYFIELD : GENERATED;
+      FieldType fromField = moveList.getFirst().equalsIgnoreCase("above") ? PLAYFIELD : GENERATED;
       int fromRow = Integer.parseInt(moveList.get(1));
       int fromColumn = Integer.parseInt(moveList.get(2));
 
-
       moveList = regexService.getMove(inputList.getLast());
 
-      GameServiceImpl.FieldPlayground toField = moveList.get(1)
-              .equalsIgnoreCase("down") ? GENERATED : PLAYFIELD;
+      FieldType toField = moveList.get(1).equalsIgnoreCase("down") ? GENERATED : PLAYFIELD;
       int toRow = Integer.parseInt(moveList.get(1));
       int toColumn = Integer.parseInt(moveList.get(2));
 
+      validateMoveInput(fromRow, fromColumn, toRow, toColumn);
 
       try {
         gameService.replaceTile(fromField, fromRow, fromColumn, toField, toRow, toColumn);
@@ -175,5 +175,15 @@ public class ConsoleUi implements UserInterface {
     System.out.printf("Choose field (default DOWN), row (between %d and %d), column," +
             " Field (default ABOVE), row, column)\n", min, max);
     return scanner.nextLine();
+  }
+
+  private void validateMoveInput(int fromRow, int fromColumn, int toRow, int toColumn) throws OutOfBoundsException {
+    int size = gameService.getGeneratedField().getSize();
+    if (    fromRow     < 1 || fromRow    > size ||
+            fromColumn  < 1 || fromColumn > size ||
+            toRow       < 1 || toRow      > size ||
+            toColumn    < 1 || toColumn   > size) {
+      throw new OutOfBoundsException("Out of bounds");
+    }
   }
 }
