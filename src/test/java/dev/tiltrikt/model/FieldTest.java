@@ -1,9 +1,9 @@
 package dev.tiltrikt.model;
 
-import dev.tiltrikt.tetravex.exception.BusyFieldException;
-import dev.tiltrikt.tetravex.exception.EmptyFieldException;
-import dev.tiltrikt.tetravex.model.Field;
-import dev.tiltrikt.tetravex.model.Tile;
+import dev.tiltrikt.tetravex.core.exception.BusyFieldException;
+import dev.tiltrikt.tetravex.core.exception.EmptyFieldException;
+import dev.tiltrikt.tetravex.core.service.game.model.Field;
+import dev.tiltrikt.tetravex.core.service.game.model.Tile;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;

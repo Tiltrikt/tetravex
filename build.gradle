@@ -7,19 +7,24 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'org.jetbrains:annotations:24.0.1'
-    compileOnly 'org.projectlombok:lombok:1.18.30'
-    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+    compileOnly "org.jetbrains:annotations:$jetbrainsAnnotationsVersion"
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 
-    runtimeOnly 'org.postgresql:postgresql:42.7.2'
+    implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
+    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.23.1'
 
-    testImplementation platform('org.junit:junit-bom:5.9.1')
+    implementation "org.reflections:reflections:$reflectionsVersion"
+
+    runtimeOnly "org.postgresql:postgresql:$postgresqlConnectorVersion"
+
+    testImplementation platform("org.junit:junit-bom:$junitBomVersion")
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
 
 jar {
     manifest {
-        attributes "Main-Class": "dev.tiltrikt.Main"
+        attributes "Main-Class": "dev.tiltrikt.tetravex.Main"
     }
 }
 

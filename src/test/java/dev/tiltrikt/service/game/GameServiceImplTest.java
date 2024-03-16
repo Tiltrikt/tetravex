@@ -1,17 +1,17 @@
 package dev.tiltrikt.service.game;
 
-import dev.tiltrikt.tetravex.exception.OutOfBoundsException;
-import dev.tiltrikt.tetravex.model.Tile;
-import dev.tiltrikt.tetravex.service.game.GameService;
-import dev.tiltrikt.tetravex.service.game.GameServiceImpl;
+import dev.tiltrikt.tetravex.core.exception.OutOfBoundsException;
+import dev.tiltrikt.tetravex.core.service.game.model.Tile;
+import dev.tiltrikt.tetravex.core.service.game.GameService;
+import dev.tiltrikt.tetravex.core.service.game.GameServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static dev.tiltrikt.tetravex.service.game.GameServiceImpl.FieldPlayground.GENERATED;
-import static dev.tiltrikt.tetravex.service.game.GameServiceImpl.FieldPlayground.PLAYFIELD;
+import static dev.tiltrikt.tetravex.core.service.game.model.FieldType.GENERATED;
+import static dev.tiltrikt.tetravex.core.service.game.model.FieldType.PLAYFIELD;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameServiceImplTest {
