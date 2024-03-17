@@ -25,7 +25,7 @@ public class CommentAction extends Action {
 
       case "reset" -> {
         commentService.reset();
-        return "Reseted\n";
+        return "Reset\n";
       }
 
       case "add" -> {

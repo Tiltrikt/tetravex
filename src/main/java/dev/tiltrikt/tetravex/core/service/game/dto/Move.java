@@ -1,4 +1,4 @@
-package dev.tiltrikt.tetravex.core.action.dto;
+package dev.tiltrikt.tetravex.core.service.game.dto;
 
 import dev.tiltrikt.tetravex.core.service.game.model.FieldType;
 import lombok.AccessLevel;

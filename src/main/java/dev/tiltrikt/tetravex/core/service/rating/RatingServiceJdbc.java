@@ -5,12 +5,10 @@ import dev.tiltrikt.tetravex.core.model.Rating;
 
 import java.sql.*;
 
+import static dev.tiltrikt.tetravex.core.configuration.GameConfiguration.*;
+
 @SuppressWarnings("SqlDialectInspection")
 public class RatingServiceJdbc implements RatingService {
-
-  public static final String URL = "jdbc:postgresql://localhost:5432/tetravex";
-  public static final String USER = "postgres";
-  public static final String PASSWORD = "postgres";
 
   public static final String TABLE = "CREATE TABLE IF NOT EXISTS rating(game varchar(30), player varchar(30), rating int CHECK(rating >= 0 AND rating <= 100), PRIMARY KEY (game, player))";
   public static final String RATING = "SELECT rating FROM rating WHERE game = ? AND player = ?";

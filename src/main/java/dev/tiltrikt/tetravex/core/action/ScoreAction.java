@@ -28,11 +28,12 @@ public class ScoreAction extends Action {
 
       case "reset" -> {
         scoreService.reset();
-        return "Reseted\n";
+        return "Reset\n";
       }
 
       case "add" -> {
-        scoreService.addScore(new Score(GameConfiguration.GAME, player, 5, Date.from(Instant.now())));
+        scoreService.addScore(new Score(GameConfiguration.GAME, player,
+                Integer.parseInt(parameterList.getLast()), Date.from(Instant.now())));
         return "Added";
       }
 

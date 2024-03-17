@@ -8,14 +8,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static dev.tiltrikt.tetravex.core.configuration.GameConfiguration.*;
+
 @SuppressWarnings("SqlDialectInspection")
 public class CommentServiceJdbc implements CommentService {
 
-  public static final String URL = "jdbc:postgresql://localhost:5432/tetravex";
-  public static final String USER = "postgres";
-  public static final String PASSWORD = "postgres";
-
-  public static final String TABLE = "CREATE TABLE IF NOT EXISTS comment(game varchar(30), player varchar(30), comment varchar(500), PRIMARY KEY (game, player))";
+  public static final String TABLE = "CREATE TABLE IF NOT EXISTS comment(game varchar(30), player varchar(30), comment varchar(500))";
   public static final String DELETE = "DELETE FROM comment";
   public static final String INSERT = "INSERT INTO comment (game, player, rating) VALUES (?, ?, ?)";
   public static final String SELECT = "SELECT game, player, comment FROM score WHERE game = ?";

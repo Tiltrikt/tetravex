@@ -26,10 +26,10 @@ public class RatingAction extends Action {
 
       case "reset" -> {
         ratingService.reset();
-        return "Reseted\n";
+        return "Reset\n";
       }
 
-      case "set" -> {
+      case "add" -> {
         ratingService.setRating(new Rating(GameConfiguration.GAME, player, Integer.parseInt(parameterList.getLast())));
         return "Added";
       }

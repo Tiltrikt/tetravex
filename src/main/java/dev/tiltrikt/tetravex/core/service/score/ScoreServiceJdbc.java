@@ -7,18 +7,16 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static dev.tiltrikt.tetravex.core.configuration.GameConfiguration.*;
+
 
 @SuppressWarnings("SqlDialectInspection")
 public class ScoreServiceJdbc implements ScoreService {
 
-  public static final String URL = "jdbc:postgresql://localhost:5432/tetravex";
-  public static final String USER = "postgres";
-  public static final String PASSWORD = "postgres";
-
-  public static final String TABLE = "CREATE TABLE IF NOT EXISTS score(game varchar(30), player varchar(30), points int, played_on date, PRIMARY KEY (game, player))";
-  public static final String SELECT = "SELECT game, player, points, playedOn FROM score WHERE game = ? ORDER BY points DESC LIMIT 10";
+  public static final String TABLE = "CREATE TABLE IF NOT EXISTS score(game varchar(30), player varchar(30), points int, played_on date)";
+  public static final String SELECT = "SELECT game, player, points, played_on FROM score WHERE game = ? ORDER BY points DESC LIMIT 10";
   public static final String DELETE = "DELETE FROM score";
-  public static final String INSERT = "INSERT INTO score (game, player, points, playedOn) VALUES (?, ?, ?, ?)";
+  public static final String INSERT = "INSERT INTO score (game, player, points, played_on) VALUES (?, ?, ?, ?)";
 
   public ScoreServiceJdbc() {
     try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -41,7 +39,7 @@ public class ScoreServiceJdbc implements ScoreService {
       statement.setTimestamp(4, new Timestamp(score.getPlayedOn().getTime()));
       statement.executeUpdate();
     } catch (SQLException e) {
-      throw new ScoreException("Problem inserting score", e);
+      throw new ScoreException("Problem adding score", e);
     }
   }
 

@@ -4,8 +4,6 @@ import dev.tiltrikt.tetravex.client.service.console.ConsoleServiceImpl;
 import dev.tiltrikt.tetravex.core.action.Action;
 import dev.tiltrikt.tetravex.core.action.annotation.ActionClass;
 import dev.tiltrikt.tetravex.core.exception.GameException;
-import dev.tiltrikt.tetravex.core.service.regex.RegexService;
-import dev.tiltrikt.tetravex.core.service.regex.RegexServiceImpl;
 import lombok.AccessLevel;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
@@ -15,6 +13,7 @@ import org.reflections.Reflections;
 
 import java.util.Set;
 
+@SuppressWarnings({"DataFlowIssue", "InfiniteLoopStatement"})
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ConsoleUi implements UserInterface {
 

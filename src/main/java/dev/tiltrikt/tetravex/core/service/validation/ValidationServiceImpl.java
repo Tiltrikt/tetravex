@@ -1,6 +1,6 @@
 package dev.tiltrikt.tetravex.core.service.validation;
 
-import dev.tiltrikt.tetravex.core.action.dto.Move;
+import dev.tiltrikt.tetravex.core.service.game.dto.Move;
 import dev.tiltrikt.tetravex.core.exception.InputException;
 import dev.tiltrikt.tetravex.core.exception.OutOfBoundsException;
 import org.jetbrains.annotations.NotNull;
@@ -16,6 +16,7 @@ public class ValidationServiceImpl {
     }
   }
 
+
   public void validateStartInput(@NotNull List<String> list) {
 
     if (list.size() != 2) {
@@ -29,6 +30,7 @@ public class ValidationServiceImpl {
     }
   }
 
+
   public void validateCommentInput(@NotNull List<String> list) {
 
     if (list.size() < 2 && list.getFirst().equalsIgnoreCase("add")) {
@@ -39,6 +41,7 @@ public class ValidationServiceImpl {
       throw new InputException("Wrong number of parameters");
     }
   }
+
 
   public void validateRatingInput(@NotNull List<String> list) {
 
@@ -63,6 +66,8 @@ public class ValidationServiceImpl {
     }
 
   }
+
+
   public void validateScoreInput(@NotNull List<String> list) {
 
     if (list.size() != 2 && list.getFirst().equalsIgnoreCase("add")) {

@@ -1,6 +1,6 @@
 package dev.tiltrikt.tetravex.core.service.mapping;
 
-import dev.tiltrikt.tetravex.core.action.dto.Move;
+import dev.tiltrikt.tetravex.core.service.game.dto.Move;
 import dev.tiltrikt.tetravex.core.model.Comment;
 import dev.tiltrikt.tetravex.core.model.Score;
 import dev.tiltrikt.tetravex.core.service.game.GameService;
