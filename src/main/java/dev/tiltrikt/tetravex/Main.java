@@ -1,7 +1,7 @@
 package dev.tiltrikt.tetravex;
 
-import dev.tiltrikt.tetravex.client.ui.UserInterface;
 import dev.tiltrikt.tetravex.client.ui.ConsoleUi;
+import dev.tiltrikt.tetravex.client.ui.UserInterface;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 

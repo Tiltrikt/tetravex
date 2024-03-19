@@ -11,13 +11,15 @@ dependencies {
     compileOnly "org.projectlombok:lombok:$lombokVersion"
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 
-    implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
-    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.23.1'
+    implementation "org.apache.logging.log4j:log4j-core:$loggerVersion"
+    implementation "org.apache.logging.log4j:log4j-slf4j-impl:$loggerVersion"
 
     implementation "org.reflections:reflections:$reflectionsVersion"
 
     runtimeOnly "org.postgresql:postgresql:$postgresqlConnectorVersion"
 
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    testCompileOnly "org.projectlombok:lombok:$lombokVersion"
     testImplementation platform("org.junit:junit-bom:$junitBomVersion")
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }

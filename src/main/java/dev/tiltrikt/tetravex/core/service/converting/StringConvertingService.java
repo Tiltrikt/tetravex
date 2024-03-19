@@ -1,9 +1,10 @@
-package dev.tiltrikt.tetravex.core.service.mapping;
+package dev.tiltrikt.tetravex.core.service.converting;
 
-import dev.tiltrikt.tetravex.core.service.game.dto.Move;
+import dev.tiltrikt.tetravex.core.exception.InputException;
 import dev.tiltrikt.tetravex.core.model.Comment;
 import dev.tiltrikt.tetravex.core.model.Score;
 import dev.tiltrikt.tetravex.core.service.game.GameService;
+import dev.tiltrikt.tetravex.core.service.game.dto.Move;
 import dev.tiltrikt.tetravex.core.service.game.model.Field;
 import dev.tiltrikt.tetravex.core.service.game.model.FieldType;
 import dev.tiltrikt.tetravex.core.service.game.model.Tile;
@@ -13,17 +14,19 @@ import java.util.List;
 import java.util.Optional;
 
 @SuppressWarnings("StringBufferReplaceableByString")
-public class MappingService {
+public class StringConvertingService {
 
-  public @NotNull String mapFieldsToString(@NotNull GameService gameService) {
+  public @NotNull String convertFieldsToString(@NotNull GameService gameService) {
+
     StringBuilder stringBuilder = new StringBuilder();
-    stringBuilder.append(parseField(gameService.getPlayField()));
-    stringBuilder.append(printBorderLine(gameService.getGeneratedField().getSize()));
-    stringBuilder.append(parseField(gameService.getGeneratedField()));
+    stringBuilder.append(convertFieldToString(gameService.getPlayField()));
+    stringBuilder.append(createBorderLine(gameService.getGeneratedField().getSize()));
+    stringBuilder.append(convertFieldToString(gameService.getGeneratedField()));
     return stringBuilder.toString();
   }
 
-  public @NotNull String mapCommentsToString(@NotNull List<Comment> commentList) {
+  public @NotNull String convertCommentsToString(@NotNull List<Comment> commentList) {
+
     StringBuilder stringBuilder = new StringBuilder();
 
     for (Comment comment : commentList) {
@@ -33,25 +36,38 @@ public class MappingService {
     return stringBuilder.toString();
   }
 
-  public @NotNull String mapScoresToString(@NotNull List<Score> scoreList) {
+  public @NotNull String convertScoresToString(@NotNull List<Score> scoreList) {
     StringBuilder stringBuilder = new StringBuilder();
 
     for (Score score : scoreList) {
-      stringBuilder.append(String.format("%s %s %s: %s\n", score.getGame(), score.getPlayer(), score.getPlayedOn().toString(), score.getPoints()));
+      stringBuilder.append(String.format("%s %s %s: %s\n", score.getGame(), score.getPlayer(),
+              score.getPlayedOn().toString(), score.getPoints()));
     }
 
     return stringBuilder.toString();
   }
 
-  public @NotNull Move mapListToMoveRequest(@NotNull List<String> actionList) {
+  public @NotNull Move convertListToMoveRequest(@NotNull List<String> actionList) {
 
-    FieldType fromField = actionList.getFirst().equalsIgnoreCase("above") ? FieldType.PLAYFIELD : FieldType.GENERATED;
-    int fromRow = Integer.parseInt(actionList.get(1));
-    int fromColumn = Integer.parseInt(actionList.get(2));
+    FieldType fromField = FieldType.resolveFieldType(actionList.getFirst(), "above");
+    int fromRow;
+    int fromColumn;
+    try {
+      fromRow = Integer.parseInt(actionList.get(1));
+      fromColumn = Integer.parseInt(actionList.get(2));
+    } catch (NumberFormatException exception) {
+      throw new InputException("Wrong number input");
+    }
 
-    FieldType toField = actionList.get(3).equalsIgnoreCase("down") ? FieldType.GENERATED : FieldType.PLAYFIELD;
-    int toRow = Integer.parseInt(actionList.get(4));
-    int toColumn = Integer.parseInt(actionList.get(5));
+    FieldType toField = FieldType.resolveFieldType(actionList.get(3), "down");
+    int toRow;
+    int toColumn;
+    try {
+      toRow = Integer.parseInt(actionList.get(4));
+      toColumn = Integer.parseInt(actionList.get(5));
+    } catch (NumberFormatException exception) {
+      throw new InputException("Wrong number input");
+    }
 
     return Move.builder().
             fromField(fromField)
@@ -63,26 +79,20 @@ public class MappingService {
             .build();
   }
 
-  private @NotNull String parseField(@NotNull Field field) {
+  private @NotNull String convertFieldToString(@NotNull Field field) {
+
     StringBuilder stringBuilder = new StringBuilder();
     int size = field.getSize();
-    stringBuilder.append(printHeader(size));
+    stringBuilder.append(createHeader(size));
     List<Optional<Tile>> tileList = field.getTileList();
     for (int y = 0; y < size; y++) {
-      stringBuilder.append(printTileLine(tileList.subList(y * size, (y + 1) * size), y));
+      stringBuilder.append(convertTileLineToString(tileList.subList(y * size, (y + 1) * size), y));
     }
     return stringBuilder.toString();
   }
 
-  private @NotNull String printBorderLine(int size) {
-    StringBuilder stringBuilder = new StringBuilder();
-    stringBuilder.append("===");
-    stringBuilder.append("=========".repeat( size));
-    stringBuilder.append("===\n");
-    return stringBuilder.toString();
-  }
+  private @NotNull String convertTileLineToString(@NotNull List<Optional<Tile>> tileSubList, int row) {
 
-  private @NotNull String printTileLine(@NotNull List<Optional<Tile>> tileSubList, int row) {
     StringBuilder stringBuilder = new StringBuilder();
     int size = tileSubList.size();
     stringBuilder.append("   ");
@@ -126,13 +136,23 @@ public class MappingService {
     return stringBuilder.toString();
   }
 
-  private @NotNull String printHeader(int size) {
+  private @NotNull String createHeader(int size) {
+
     StringBuilder stringBuilder = new StringBuilder();
     stringBuilder.append("   ");
     for (int i = 0; i < size; i++) {
       stringBuilder.append(String.format("    %d    ", i + 1));
     }
     stringBuilder.append("\n");
+    return stringBuilder.toString();
+  }
+
+  private @NotNull String createBorderLine(int size) {
+
+    StringBuilder stringBuilder = new StringBuilder();
+    stringBuilder.append("===");
+    stringBuilder.append("=========".repeat( size));
+    stringBuilder.append("===\n");
     return stringBuilder.toString();
   }
 }

@@ -1,8 +1,10 @@
 package dev.tiltrikt.tetravex.core.service.game;
 
+import dev.tiltrikt.tetravex.core.exception.BusyFieldException;
+import dev.tiltrikt.tetravex.core.exception.GameNotStartedException;
+import dev.tiltrikt.tetravex.core.exception.GameNotWonException;
 import dev.tiltrikt.tetravex.core.service.game.dto.Move;
 import dev.tiltrikt.tetravex.core.service.game.factory.FieldFactory;
-import dev.tiltrikt.tetravex.core.exception.BusyFieldException;
 import dev.tiltrikt.tetravex.core.service.game.model.Field;
 import dev.tiltrikt.tetravex.core.service.game.model.Tile;
 import lombok.AccessLevel;
@@ -35,6 +37,10 @@ public class GameServiceImpl implements GameService {
 
   public boolean isWin() {
 
+    if (finishTime != null) {
+      return true;
+    }
+
     if (playField.isSolved()) {
       finishTime = Date.from(Instant.now());
       return true;
@@ -45,6 +51,11 @@ public class GameServiceImpl implements GameService {
 
   @Override
   public int getPoints() {
+
+    if (!isWin()) {
+      throw new GameNotWonException("No points 'cause game not finished");
+    }
+
     long playingTimeInSeconds = Duration.between(startTime.toInstant(), finishTime.toInstant()).getSeconds();
     int generatedFieldSize = getGeneratedField().getSize();
     return (int) Math.round((Math.pow(2, generatedFieldSize) / playingTimeInSeconds) * 100);
@@ -52,6 +63,10 @@ public class GameServiceImpl implements GameService {
 
   @Override
   public void replaceTile(@NotNull Move move) {
+
+    if (isWin()) {
+      throw new GameNotStartedException("Start new game please");
+    }
 
     Field fromField = move.getFromField().chooseField(generatedField, playField);
     Field toField = move.getToField().chooseField(generatedField, playField);

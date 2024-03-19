@@ -39,7 +39,7 @@ public class ScoreAction extends Action {
 
       case "get" -> {
         List<Score> scoreList = scoreService.getTopScores(GameConfiguration.GAME);
-        return mappingService.mapScoresToString(scoreList);
+        return stringConvertingService.convertScoresToString(scoreList);
       }
 
       default -> {

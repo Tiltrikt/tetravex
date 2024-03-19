@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 public enum ActionType {
 
   START,
+  PLAYER,
   MOVE,
   SCORE,
   RATING,
@@ -15,6 +16,7 @@ public enum ActionType {
   public static @NotNull ActionType resolveAction(@NotNull String action) {
     return switch (action.toLowerCase()) {
       case "start" -> START;
+      case "player" -> PLAYER;
       case "move" -> MOVE;
       case "score" -> SCORE;
       case "rating" -> RATING;

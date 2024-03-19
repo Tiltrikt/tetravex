@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @ActionClass
+@SuppressWarnings("StringBufferReplaceableByString")
 public class HelpAction extends Action {
 
   public HelpAction(@Nullable Action action) {
@@ -13,17 +14,18 @@ public class HelpAction extends Action {
 
   @Override
   protected @NotNull String doAction(@NotNull String input) {
-    StringBuilder stringBuilder = new StringBuilder();
+    StringBuilder usageInfo = new StringBuilder();
 
-    stringBuilder.append("Usage info:\n");
-    stringBuilder.append("help -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> shows this information\n");
-    stringBuilder.append("start <size player> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> starts game\n");
-    stringBuilder.append("move (FROM)<field[above/down] row column> (TO)<field row column> -> move tile\n");
-    stringBuilder.append("comment [add + comment / get / reset] -> -> -> -> -> -> -> -> -> -> add / get / reset comment\n");
-    stringBuilder.append("rating [add + rating / get / average / reset]  -> -> -> -> -> -> -> add / get / average / reset rating\n");
-    stringBuilder.append("score [add + score / get / reset]  -> -> -> -> -> -> -> -> -> -> -> display all finished tasks\n");
-    stringBuilder.append("exit -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> exit game\n");
+    usageInfo.append("**Usage Info:**\n");
+    usageInfo.append("* `help` - Shows this information.\n");
+    usageInfo.append("* `player <name>` - Set player with the specified name.\n");
+    usageInfo.append("* `start <size>` - Starts a new game with the specified size.\n");
+    usageInfo.append("* `move (FROM)<field[above/down] row column> (TO)<field row column>` - Move a tile from one field to another.\n");
+    usageInfo.append("* `comment [add + comment / get / reset]` - Add, get, or reset a comment.\n");
+    usageInfo.append("* `rating [add + rating / get / average / reset]` - Add, get, average, or reset the rating.\n");
+    usageInfo.append("* `score [add + score / get / reset]` - Add, get, or reset the score.\n");
+    usageInfo.append("* `exit` - Exit the game.\n");
 
-    return stringBuilder.toString();
+    return usageInfo.toString();
   }
 }

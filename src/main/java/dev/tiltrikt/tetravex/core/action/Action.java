@@ -1,17 +1,18 @@
 package dev.tiltrikt.tetravex.core.action;
 
+import dev.tiltrikt.tetravex.core.exception.ChainException;
+import dev.tiltrikt.tetravex.core.service.comment.CommentService;
+import dev.tiltrikt.tetravex.core.service.comment.CommentServiceJdbc;
+import dev.tiltrikt.tetravex.core.service.converting.StringConvertingService;
+import dev.tiltrikt.tetravex.core.service.game.GameService;
+import dev.tiltrikt.tetravex.core.service.rating.RatingService;
+import dev.tiltrikt.tetravex.core.service.rating.RatingServiceJdbc;
 import dev.tiltrikt.tetravex.core.service.regex.RegexService;
 import dev.tiltrikt.tetravex.core.service.regex.RegexServiceImpl;
 import dev.tiltrikt.tetravex.core.service.score.ScoreService;
 import dev.tiltrikt.tetravex.core.service.score.ScoreServiceJdbc;
+import dev.tiltrikt.tetravex.core.service.validation.ValidationService;
 import dev.tiltrikt.tetravex.core.service.validation.ValidationServiceImpl;
-import dev.tiltrikt.tetravex.core.exception.ChainException;
-import dev.tiltrikt.tetravex.core.service.comment.CommentService;
-import dev.tiltrikt.tetravex.core.service.comment.CommentServiceJdbc;
-import dev.tiltrikt.tetravex.core.service.game.GameService;
-import dev.tiltrikt.tetravex.core.service.mapping.MappingService;
-import dev.tiltrikt.tetravex.core.service.rating.RatingService;
-import dev.tiltrikt.tetravex.core.service.rating.RatingServiceJdbc;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -33,8 +34,8 @@ public abstract class Action {
   @NotNull RatingService ratingService = new RatingServiceJdbc();
   @NotNull ScoreService scoreService = new ScoreServiceJdbc();
   @NotNull RegexService regexService = new RegexServiceImpl();
-  @NotNull ValidationServiceImpl validationService = new ValidationServiceImpl();
-  @NotNull MappingService mappingService = new MappingService();
+  @NotNull ValidationService validationService = new ValidationServiceImpl();
+  @NotNull StringConvertingService stringConvertingService = new StringConvertingService();
 
   public @NotNull String handleAction(@NotNull String input) {
 

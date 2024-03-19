@@ -1,7 +1,7 @@
 package dev.tiltrikt.tetravex.core.service.score;
 
-import dev.tiltrikt.tetravex.core.model.Score;
 import dev.tiltrikt.tetravex.core.exception.ScoreException;
+import dev.tiltrikt.tetravex.core.model.Score;
 
 import java.sql.*;
 import java.util.ArrayList;

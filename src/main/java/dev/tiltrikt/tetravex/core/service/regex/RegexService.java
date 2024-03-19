@@ -12,7 +12,7 @@ public abstract class RegexService {
 
   @NotNull Pattern movePattern = Pattern.compile("(?<field>[a-z]*)\\s?(?<position>(?:\\d ?){2})", Pattern.CASE_INSENSITIVE);
   @NotNull Pattern actionPattern = Pattern.compile("^(?<action>[a-z]+)", Pattern.CASE_INSENSITIVE);
-  @NotNull Pattern commentPattern = Pattern.compile("^[a-z]+\\s+(?<parameter>(?:\\w+\\s*)+)$", Pattern.CASE_INSENSITIVE);
+  @NotNull Pattern commentPattern = Pattern.compile("^[a-z]+\\s+(?<parameter>(?:.+\\s*)+)$", Pattern.CASE_INSENSITIVE);
 
   public abstract @NotNull List<String> getMoveParameters(@NotNull String input);
   public abstract @NotNull String getAction(@NotNull String input);

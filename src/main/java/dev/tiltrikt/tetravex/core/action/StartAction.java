@@ -17,14 +17,17 @@ public class StartAction extends Action {
 
   public @NotNull String doAction(@NotNull String input) {
 
+    if (player == null) {
+      return "Please set player first\n";
+    }
+
     List<String> startList = regexService.getParameters(input);
     validationService.validateStartInput(startList);
 
     int size = Integer.parseInt(startList.getFirst());
     validationService.validateFieldSize(GameConfiguration.MIN, GameConfiguration.MAX, size);
     gameService = new GameServiceImpl(size);
-    player = startList.getLast();
 
-    return mappingService.mapFieldsToString(gameService);
+    return stringConvertingService.convertFieldsToString(gameService);
   }
 }

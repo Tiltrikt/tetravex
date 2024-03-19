@@ -1,5 +1,6 @@
 package dev.tiltrikt.tetravex.client.ui;
 
+import dev.tiltrikt.tetravex.client.service.console.ConsoleService;
 import dev.tiltrikt.tetravex.client.service.console.ConsoleServiceImpl;
 import dev.tiltrikt.tetravex.core.action.Action;
 import dev.tiltrikt.tetravex.core.action.annotation.ActionClass;
@@ -19,7 +20,7 @@ public class ConsoleUi implements UserInterface {
 
   @NotNull Reflections reflections = new Reflections("dev.tiltrikt.tetravex.core.action");
   @NonFinal Action action;
-  @NotNull ConsoleServiceImpl consoleService = new ConsoleServiceImpl();
+  @NotNull ConsoleService consoleService = new ConsoleServiceImpl();
 
   @SneakyThrows
   @Override

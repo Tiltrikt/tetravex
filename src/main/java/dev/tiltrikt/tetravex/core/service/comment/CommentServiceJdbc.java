@@ -1,8 +1,7 @@
 package dev.tiltrikt.tetravex.core.service.comment;
 
-import dev.tiltrikt.tetravex.core.model.Comment;
 import dev.tiltrikt.tetravex.core.exception.CommentException;
-import dev.tiltrikt.tetravex.core.exception.RatingException;
+import dev.tiltrikt.tetravex.core.model.Comment;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,8 +14,8 @@ public class CommentServiceJdbc implements CommentService {
 
   public static final String TABLE = "CREATE TABLE IF NOT EXISTS comment(game varchar(30), player varchar(30), comment varchar(500))";
   public static final String DELETE = "DELETE FROM comment";
-  public static final String INSERT = "INSERT INTO comment (game, player, rating) VALUES (?, ?, ?)";
-  public static final String SELECT = "SELECT game, player, comment FROM score WHERE game = ?";
+  public static final String INSERT = "INSERT INTO comment (game, player, comment) VALUES (?, ?, ?)";
+  public static final String SELECT = "SELECT game, player, comment FROM comment WHERE game = ?";
 
 
   public CommentServiceJdbc() {
@@ -39,7 +38,7 @@ public class CommentServiceJdbc implements CommentService {
       statement.setString(3, comment.getComment());
       statement.executeUpdate();
     } catch (SQLException e) {
-      throw new RatingException("Problem inserting comment", e);
+      throw new CommentException("Problem inserting comment", e);
     }
   }
 

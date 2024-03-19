@@ -2,6 +2,7 @@ package dev.tiltrikt.tetravex.core.action;
 
 import dev.tiltrikt.tetravex.core.action.annotation.ActionClass;
 import dev.tiltrikt.tetravex.core.configuration.GameConfiguration;
+import dev.tiltrikt.tetravex.core.exception.NoPlayerException;
 import dev.tiltrikt.tetravex.core.exception.RatingException;
 import dev.tiltrikt.tetravex.core.model.Rating;
 import org.jetbrains.annotations.NotNull;
@@ -18,6 +19,10 @@ public class RatingAction extends Action {
 
   @Override
   protected @NotNull String doAction(@NotNull String input) {
+
+    if (player == null) {
+      throw new NoPlayerException("Please set player");
+    }
 
     List<String> parameterList = regexService.getParameters(input);
     validationService.validateRatingInput(parameterList);

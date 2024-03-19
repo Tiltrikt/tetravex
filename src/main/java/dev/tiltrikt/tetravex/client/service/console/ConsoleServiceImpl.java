@@ -1,16 +1,14 @@
 package dev.tiltrikt.tetravex.client.service.console;
 
 import dev.tiltrikt.tetravex.core.exception.GameException;
-import dev.tiltrikt.tetravex.core.model.Score;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.Scanner;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class ConsoleServiceImpl {
+public class ConsoleServiceImpl implements ConsoleService {
 
   @NotNull Scanner scanner = new Scanner(System.in);
 

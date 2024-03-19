@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 @Getter
 @Setter
 @Builder
+@EqualsAndHashCode
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Comment {

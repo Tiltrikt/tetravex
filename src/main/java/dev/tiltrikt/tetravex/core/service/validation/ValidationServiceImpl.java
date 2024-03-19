@@ -1,13 +1,13 @@
 package dev.tiltrikt.tetravex.core.service.validation;
 
-import dev.tiltrikt.tetravex.core.service.game.dto.Move;
 import dev.tiltrikt.tetravex.core.exception.InputException;
 import dev.tiltrikt.tetravex.core.exception.OutOfBoundsException;
+import dev.tiltrikt.tetravex.core.service.game.dto.Move;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class ValidationServiceImpl {
+public class ValidationServiceImpl implements ValidationService {
 
   public void validateFieldSize(int min, int max, int input) throws OutOfBoundsException {
 
@@ -19,14 +19,21 @@ public class ValidationServiceImpl {
 
   public void validateStartInput(@NotNull List<String> list) {
 
-    if (list.size() != 2) {
+    if (list.size() != 1) {
       throw new InputException("Wrong number of parameters");
     }
 
     try {
       int size = Integer.parseInt(list.getFirst());
     } catch (NumberFormatException exception) {
-      throw new InputException("Wrong type of first parameter");
+      throw new InputException("Wrong type of parameter");
+    }
+  }
+
+  public void validatePlayerInput(@NotNull List<String> list) {
+
+    if (list.size() != 1) {
+      throw new InputException("Wrong number of parameters");
     }
   }
 

@@ -9,17 +9,6 @@ import java.util.regex.Matcher;
 
 public class RegexServiceImpl extends RegexService {
 
-//  public int getSize(@NotNull String input) throws RegexNotFoundException {
-//
-//    Matcher matcher = sizePattern.matcher(input);
-//
-//    if (matcher.find()) {
-//      return Integer.parseInt(matcher.group("size"));
-//    } else {
-//      throw new RegexNotFoundException("Size wrong format");
-//    }
-//  }
-
   public @NotNull List<String> getMoveParameters(@NotNull String input) throws RegexNotFoundException {
 
     Matcher matcher = movePattern.matcher(input);
