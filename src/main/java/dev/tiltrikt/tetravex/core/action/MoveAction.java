@@ -1,11 +1,15 @@
 package dev.tiltrikt.tetravex.core.action;
 
 import dev.tiltrikt.tetravex.core.action.annotation.ActionClass;
+import dev.tiltrikt.tetravex.core.configuration.GameConfiguration;
 import dev.tiltrikt.tetravex.core.exception.GameNotStartedException;
+import dev.tiltrikt.tetravex.core.model.Score;
 import dev.tiltrikt.tetravex.core.service.game.dto.Move;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 @ActionClass
@@ -28,7 +32,7 @@ public class MoveAction extends Action {
 
     if (gameService.isWin()) {
       int points = gameService.getPoints();
-      new ScoreAction(null).doAction(String.format("score add %d", points));
+      scoreService.addScore(new Score(GameConfiguration.GAME, player, points, Date.from(Instant.now())));
       return stringConvertingServiceImpl.convertFieldsToString(gameService) + String.format("You won with %d points!\n", points);
     } else {
       return stringConvertingServiceImpl.convertFieldsToString(gameService);

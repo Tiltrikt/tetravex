@@ -30,8 +30,6 @@ class CommentServiceJdbcTest {
 
     Comment comment = new Comment("x", "x", "x");
     commentService.addComment(comment);
-    System.out.println(comment.getComment());
-    System.out.println(commentService.getComments("x").getFirst().getComment());
     assertEquals(commentService.getComments("x").getFirst(), comment);
   }
 

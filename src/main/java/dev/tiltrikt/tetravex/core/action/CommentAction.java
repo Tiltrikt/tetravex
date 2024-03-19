@@ -26,10 +26,6 @@ public class CommentAction extends Action {
 
     List<String> parameterList = regexService.getParameters(input);
 
-    for (String string : parameterList) {
-      System.out.println(string);
-    }
-
     validationService.validateCommentInput(parameterList);
 
     switch (parameterList.getFirst().toLowerCase()) {

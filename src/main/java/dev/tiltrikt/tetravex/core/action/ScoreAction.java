@@ -31,12 +31,6 @@ public class ScoreAction extends Action {
         return "Reset\n";
       }
 
-      case "add" -> {
-        scoreService.addScore(new Score(GameConfiguration.GAME, player,
-                Integer.parseInt(parameterList.getLast()), Date.from(Instant.now())));
-        return "Added\n";
-      }
-
       case "get" -> {
         List<Score> scoreList = scoreService.getTopScores(GameConfiguration.GAME);
         return stringConvertingServiceImpl.convertScoresToString(scoreList);

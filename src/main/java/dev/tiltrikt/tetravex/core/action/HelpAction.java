@@ -23,7 +23,7 @@ public class HelpAction extends Action {
     usageInfo.append("* `move (FROM)<field[above/down] row column> (TO)<field row column>` - Move a tile from one field to another.\n");
     usageInfo.append("* `comment [add + comment / get / reset]` - Add, get, or reset a comment.\n");
     usageInfo.append("* `rating [add + rating / get / average / reset]` - Add, get, average, or reset the rating.\n");
-    usageInfo.append("* `score [add + score / get / reset]` - Add, get, or reset the score.\n");
+    usageInfo.append("* `score [get / reset]` - Add, get, or reset the score.\n");
     usageInfo.append("* `exit` - Exit the game.\n");
 
     return usageInfo.toString();

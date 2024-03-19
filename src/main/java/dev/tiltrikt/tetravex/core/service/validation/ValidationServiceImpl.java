@@ -53,11 +53,11 @@ public class ValidationServiceImpl implements ValidationService {
 
   public void validateRatingInput(@NotNull List<String> list) {
 
-    if (list.size() != 2 && list.getFirst().equalsIgnoreCase("set")) {
+    if (list.size() != 2 && list.getFirst().equalsIgnoreCase("add")) {
       throw new InputException("Wrong number of parameters");
     }
 
-    if (list.size() != 1 && !list.getFirst().equalsIgnoreCase("set")) {
+    if (list.size() != 1 && !list.getFirst().equalsIgnoreCase("add")) {
       throw new InputException("Wrong number of parameters");
     }
 

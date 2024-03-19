@@ -36,7 +36,7 @@ public class RatingServiceJdbc implements RatingService {
       statement.setInt(3, rating.getRating());
       statement.executeUpdate();
     } catch (SQLException e) {
-      throw new RatingException("Problem inserting score", e);
+      throw new RatingException("Problem inserting rating", e);
     }
   }
 
