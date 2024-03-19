@@ -22,16 +22,16 @@ public class MoveAction extends Action {
     }
 
     List<String> actionList = regexService.getMoveParameters(input);
-    Move move = stringConvertingService.convertListToMoveRequest(actionList);
+    Move move = stringConvertingServiceImpl.convertListToMoveRequest(actionList);
     validationService.validateMoveInput(move, gameService.getPlayField().getSize());
     gameService.replaceTile(move);
 
     if (gameService.isWin()) {
       int points = gameService.getPoints();
       new ScoreAction(null).doAction(String.format("score add %d", points));
-      return stringConvertingService.convertFieldsToString(gameService) + String.format("You won with %d points!\n", points);
+      return stringConvertingServiceImpl.convertFieldsToString(gameService) + String.format("You won with %d points!\n", points);
     } else {
-      return stringConvertingService.convertFieldsToString(gameService);
+      return stringConvertingServiceImpl.convertFieldsToString(gameService);
     }
   }
 }

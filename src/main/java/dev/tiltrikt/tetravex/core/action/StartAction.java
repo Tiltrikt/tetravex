@@ -28,6 +28,6 @@ public class StartAction extends Action {
     validationService.validateFieldSize(GameConfiguration.MIN, GameConfiguration.MAX, size);
     gameService = new GameServiceImpl(size);
 
-    return stringConvertingService.convertFieldsToString(gameService);
+    return stringConvertingServiceImpl.convertFieldsToString(gameService);
   }
 }

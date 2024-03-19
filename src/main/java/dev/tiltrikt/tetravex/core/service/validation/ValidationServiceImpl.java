@@ -30,6 +30,7 @@ public class ValidationServiceImpl implements ValidationService {
     }
   }
 
+
   public void validatePlayerInput(@NotNull List<String> list) {
 
     if (list.size() != 1) {

@@ -47,7 +47,7 @@ public class CommentAction extends Action {
 
       case "get" -> {
         List<Comment> commentList = commentService.getComments(GameConfiguration.GAME);
-        return stringConvertingService.convertCommentsToString(commentList);
+        return stringConvertingServiceImpl.convertCommentsToString(commentList);
       }
 
       default -> {

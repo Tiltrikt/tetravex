@@ -36,7 +36,7 @@ public class RatingAction extends Action {
 
       case "add" -> {
         ratingService.setRating(new Rating(GameConfiguration.GAME, player, Integer.parseInt(parameterList.getLast())));
-        return "Added";
+        return "Added\n";
       }
 
       case "get" -> {

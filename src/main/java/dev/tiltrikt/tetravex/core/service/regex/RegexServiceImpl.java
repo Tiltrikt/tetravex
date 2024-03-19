@@ -6,9 +6,15 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class RegexServiceImpl extends RegexService {
+public class RegexServiceImpl implements RegexService {
 
+  @NotNull Pattern movePattern = Pattern.compile("(?<field>[a-z]*)\\s?(?<position>(?:\\d ?){2})", Pattern.CASE_INSENSITIVE);
+  @NotNull Pattern actionPattern = Pattern.compile("^(?<action>[a-z]+)", Pattern.CASE_INSENSITIVE);
+  @NotNull Pattern commentPattern = Pattern.compile("^[a-z]+\\s+(?<parameter>(?:.+\\s*)+)$", Pattern.CASE_INSENSITIVE);
+
+  @Override
   public @NotNull List<String> getMoveParameters(@NotNull String input) throws RegexNotFoundException {
 
     Matcher matcher = movePattern.matcher(input);

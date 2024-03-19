@@ -4,6 +4,7 @@ import dev.tiltrikt.tetravex.core.exception.ChainException;
 import dev.tiltrikt.tetravex.core.service.comment.CommentService;
 import dev.tiltrikt.tetravex.core.service.comment.CommentServiceJdbc;
 import dev.tiltrikt.tetravex.core.service.converting.StringConvertingService;
+import dev.tiltrikt.tetravex.core.service.converting.StringConvertingServiceImpl;
 import dev.tiltrikt.tetravex.core.service.game.GameService;
 import dev.tiltrikt.tetravex.core.service.rating.RatingService;
 import dev.tiltrikt.tetravex.core.service.rating.RatingServiceJdbc;
@@ -35,7 +36,7 @@ public abstract class Action {
   @NotNull ScoreService scoreService = new ScoreServiceJdbc();
   @NotNull RegexService regexService = new RegexServiceImpl();
   @NotNull ValidationService validationService = new ValidationServiceImpl();
-  @NotNull StringConvertingService stringConvertingService = new StringConvertingService();
+  @NotNull StringConvertingService stringConvertingServiceImpl = new StringConvertingServiceImpl();
 
   public @NotNull String handleAction(@NotNull String input) {
 

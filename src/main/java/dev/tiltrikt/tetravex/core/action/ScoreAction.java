@@ -34,12 +34,12 @@ public class ScoreAction extends Action {
       case "add" -> {
         scoreService.addScore(new Score(GameConfiguration.GAME, player,
                 Integer.parseInt(parameterList.getLast()), Date.from(Instant.now())));
-        return "Added";
+        return "Added\n";
       }
 
       case "get" -> {
         List<Score> scoreList = scoreService.getTopScores(GameConfiguration.GAME);
-        return stringConvertingService.convertScoresToString(scoreList);
+        return stringConvertingServiceImpl.convertScoresToString(scoreList);
       }
 
       default -> {
