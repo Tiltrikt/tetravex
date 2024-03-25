@@ -4,9 +4,11 @@ import dev.tiltrikt.tetravex.core.exception.GameException;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
+@Component
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ConsoleServiceImpl implements ConsoleService {
 

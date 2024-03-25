@@ -14,7 +14,7 @@ import static dev.tiltrikt.tetravex.core.configuration.GameConfiguration.PASSWOR
 import static org.junit.jupiter.api.Assertions.*;
 
 @SuppressWarnings("SqlDialectInspection")
-class RatingServiceJdbcTest {
+class RatingRepositoryJdbcTest {
 
   RatingService ratingService;
 

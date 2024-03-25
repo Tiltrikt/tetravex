@@ -4,9 +4,11 @@ import dev.tiltrikt.tetravex.core.exception.InputException;
 import dev.tiltrikt.tetravex.core.exception.OutOfBoundsException;
 import dev.tiltrikt.tetravex.core.service.game.dto.Move;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class ValidationServiceImpl implements ValidationService {
 
   public void validateFieldSize(int min, int max, int input) throws OutOfBoundsException {

@@ -2,6 +2,7 @@ package dev.tiltrikt.tetravex.core.service.comment;
 
 import dev.tiltrikt.tetravex.core.exception.CommentException;
 import dev.tiltrikt.tetravex.core.model.Comment;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import static dev.tiltrikt.tetravex.core.configuration.GameConfiguration.*;
 
+@Component
 @SuppressWarnings("SqlDialectInspection")
 public class CommentServiceJdbc implements CommentService {
 

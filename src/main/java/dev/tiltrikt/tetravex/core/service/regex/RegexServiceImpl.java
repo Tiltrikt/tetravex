@@ -2,12 +2,14 @@ package dev.tiltrikt.tetravex.core.service.regex;
 
 import dev.tiltrikt.tetravex.core.exception.RegexNotFoundException;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Component
 public class RegexServiceImpl implements RegexService {
 
   @NotNull Pattern movePattern = Pattern.compile("(?<field>[a-z]*)\\s?(?<position>(?:\\d ?){2})", Pattern.CASE_INSENSITIVE);

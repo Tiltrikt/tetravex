@@ -9,10 +9,12 @@ import dev.tiltrikt.tetravex.core.service.game.model.Field;
 import dev.tiltrikt.tetravex.core.service.game.model.FieldType;
 import dev.tiltrikt.tetravex.core.service.game.model.Tile;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
+@Component
 @SuppressWarnings("StringBufferReplaceableByString")
 public class StringConvertingServiceImpl implements StringConvertingService {
 
@@ -41,7 +43,7 @@ public class StringConvertingServiceImpl implements StringConvertingService {
 
     for (Score score : scoreList) {
       stringBuilder.append(String.format("%s %s %s: %s\n", score.getGame(), score.getPlayer(),
-              score.getPlayedOn().toString(), score.getPoints()));
+              score.getPlayedOn(), score.getPoints()));
     }
 
     return stringBuilder.toString();

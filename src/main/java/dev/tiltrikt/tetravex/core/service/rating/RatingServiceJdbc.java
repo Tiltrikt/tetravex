@@ -2,11 +2,13 @@ package dev.tiltrikt.tetravex.core.service.rating;
 
 import dev.tiltrikt.tetravex.core.exception.RatingException;
 import dev.tiltrikt.tetravex.core.model.Rating;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 
 import static dev.tiltrikt.tetravex.core.configuration.GameConfiguration.*;
 
+@Component
 @SuppressWarnings("SqlDialectInspection")
 public class RatingServiceJdbc implements RatingService {
 

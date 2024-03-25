@@ -26,7 +26,9 @@ public class GameServiceImpl implements GameService {
   @NotNull Field generatedField;
 
   @NotNull Field playField;
+
   @NotNull Date startTime;
+
   @NonFinal Date finishTime;
 
   public GameServiceImpl(int size) {

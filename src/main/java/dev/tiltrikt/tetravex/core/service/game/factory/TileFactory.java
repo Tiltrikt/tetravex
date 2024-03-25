@@ -3,9 +3,11 @@ package dev.tiltrikt.tetravex.core.service.game.factory;
 import dev.tiltrikt.tetravex.core.service.game.model.Tile;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import org.springframework.stereotype.Component;
 
 import java.util.Random;
 
+@Component
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class TileFactory {
 

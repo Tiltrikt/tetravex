@@ -2,20 +2,16 @@ package dev.tiltrikt.tetravex.core.action;
 
 import dev.tiltrikt.tetravex.core.exception.ChainException;
 import dev.tiltrikt.tetravex.core.service.comment.CommentService;
-import dev.tiltrikt.tetravex.core.service.comment.CommentServiceJdbc;
 import dev.tiltrikt.tetravex.core.service.converting.StringConvertingService;
-import dev.tiltrikt.tetravex.core.service.converting.StringConvertingServiceImpl;
 import dev.tiltrikt.tetravex.core.service.game.GameService;
 import dev.tiltrikt.tetravex.core.service.rating.RatingService;
-import dev.tiltrikt.tetravex.core.service.rating.RatingServiceJdbc;
 import dev.tiltrikt.tetravex.core.service.regex.RegexService;
-import dev.tiltrikt.tetravex.core.service.regex.RegexServiceImpl;
 import dev.tiltrikt.tetravex.core.service.score.ScoreService;
-import dev.tiltrikt.tetravex.core.service.score.ScoreServiceJdbc;
 import dev.tiltrikt.tetravex.core.service.validation.ValidationService;
-import dev.tiltrikt.tetravex.core.service.validation.ValidationServiceImpl;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 import org.jetbrains.annotations.NotNull;
@@ -25,18 +21,27 @@ import org.jetbrains.annotations.Nullable;
 @FieldDefaults(level = AccessLevel.PROTECTED, makeFinal = true)
 public abstract class Action {
 
-  @Nullable Action action;
+  @Setter
+  @Getter
+  @Nullable @NonFinal Action action;
 
-  @NotNull ActionType actionType;
+  @Nullable @NonFinal ActionType actionType;
 
   @NonFinal static protected String player;
   @NonFinal static protected GameService gameService;
-  @NotNull CommentService commentService = new CommentServiceJdbc();
-  @NotNull RatingService ratingService = new RatingServiceJdbc();
-  @NotNull ScoreService scoreService = new ScoreServiceJdbc();
-  @NotNull RegexService regexService = new RegexServiceImpl();
-  @NotNull ValidationService validationService = new ValidationServiceImpl();
-  @NotNull StringConvertingService stringConvertingServiceImpl = new StringConvertingServiceImpl();
+
+  @NotNull CommentService commentService;
+
+  @NotNull RatingService ratingService;
+
+  @NotNull ScoreService scoreService;
+
+  @NotNull RegexService regexService;
+
+  @NotNull ValidationService validationService;
+
+  @NotNull StringConvertingService stringConvertingService;
+
 
   public @NotNull String handleAction(@NotNull String input) {
 

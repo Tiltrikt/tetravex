@@ -5,16 +5,22 @@ import dev.tiltrikt.tetravex.core.configuration.GameConfiguration;
 import dev.tiltrikt.tetravex.core.exception.NoPlayerException;
 import dev.tiltrikt.tetravex.core.exception.RatingException;
 import dev.tiltrikt.tetravex.core.model.Rating;
+import dev.tiltrikt.tetravex.core.service.comment.CommentService;
+import dev.tiltrikt.tetravex.core.service.converting.StringConvertingService;
+import dev.tiltrikt.tetravex.core.service.rating.RatingService;
+import dev.tiltrikt.tetravex.core.service.regex.RegexService;
+import dev.tiltrikt.tetravex.core.service.score.ScoreService;
+import dev.tiltrikt.tetravex.core.service.validation.ValidationService;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 @ActionClass
 public class RatingAction extends Action {
 
-  public RatingAction(@Nullable Action action) {
-    super(action, ActionType.RATING);
+  public RatingAction(@NotNull CommentService commentService, @NotNull RatingService ratingService, @NotNull ScoreService scoreService, @NotNull RegexService regexService, @NotNull ValidationService validationService, @NotNull StringConvertingService stringConvertingService) {
+    super(commentService, ratingService, scoreService, regexService, validationService, stringConvertingService);
+    this.actionType = ActionType.RATING;
   }
 
   @Override

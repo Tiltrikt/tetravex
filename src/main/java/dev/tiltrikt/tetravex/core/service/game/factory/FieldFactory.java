@@ -5,11 +5,13 @@ import dev.tiltrikt.tetravex.core.service.game.model.Tile;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 @RequiredArgsConstructor
 @SuppressWarnings("OptionalGetWithoutIsPresent")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
