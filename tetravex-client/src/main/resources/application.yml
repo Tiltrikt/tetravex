@@ -1,0 +1,17 @@
+server:
+  port: 8079
+
+spring:
+  application:
+    name: tetravex-client
+
+  main:
+    banner-mode: off
+    web-application-type: none
+
+address:
+  gateway: "http://localhost:8099"
+  tetravex: "/api/v1/tetravex"
+  score: "/api/v1/score"
+  comment: "/api/v1/comment"
+  rating: "/api/v1/rating"

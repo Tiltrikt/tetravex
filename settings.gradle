@@ -6,3 +6,44 @@ dependencyResolutionManagement {
 
 rootProject.name = 'tetravex'
 
+[
+        'commons:commons-mapper',
+        'commons:commons-core',
+        'commons:commons-jpa',
+        'commons:commons-rest',
+
+        'rating-service:rating-service',
+        'rating-service:rating-service-rest-api',
+
+        'score-service:score-service',
+        'score-service:score-service-rest-api',
+
+        'comment-service:comment-service',
+        'comment-service:comment-service-rest-api',
+
+        'tetravex-service:tetravex-service',
+        'tetravex-service:tetravex-service-rest-api',
+
+        'tetravex-client',
+
+        'tetravex-eureka-server',
+        'tetravex-api-gateway'
+].forEach {
+  include it
+}
+
+rootProject.children.each { project ->
+  {
+    setProjectBuildFileName(project)
+  }
+}
+
+void setProjectBuildFileName(project) {
+  project.buildFileName = "${project.name}.gradle"
+  project.children.each { subproject ->
+    {
+      setProjectBuildFileName(subproject)
+    }
+  }
+}
+

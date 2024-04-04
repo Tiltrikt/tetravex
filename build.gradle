@@ -5,44 +5,46 @@ plugins {
   id 'io.spring.dependency-management' version "$springDependencyManagementPluginVersion"
 }
 
-group = 'dev.tiltrikt'
-version = '0.0.1-SNAPSHOT'
+allprojects {
 
-java {
+  apply plugin: 'idea'
+  apply plugin: 'java-library'
+  apply plugin: 'org.springframework.boot'
+  apply plugin: 'io.spring.dependency-management'
+
+  group = 'dev.tiltrikt'
+  version = '0.0.1-SNAPSHOT'
+
   sourceCompatibility = '17'
   targetCompatibility = '17'
-}
 
-dependencies {
-  compileOnly "org.jetbrains:annotations:$jetbrainsAnnotationsVersion"
-  compileOnly "org.projectlombok:lombok:$lombokVersion"
-  annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+  dependencies {
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    compileOnly "org.jetbrains:annotations:$jetbrainsAnnotationsVersion"
 
-  implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocVersion"
 
-  implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    testCompileOnly "org.projectlombok:lombok:$lombokVersion"
+    testImplementation platform("org.junit:junit-bom:$junitBomVersion")
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+  }
 
-  implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-  implementation "org.apache.logging.log4j:log4j-core:$loggerVersion"
-  implementation "org.apache.logging.log4j:log4j-slf4j-impl:$loggerVersion"
-
-  implementation "org.reflections:reflections:$reflectionsVersion"
-
-  runtimeOnly "org.postgresql:postgresql:$postgresqlConnectorVersion"
-
-  testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
-  testCompileOnly "org.projectlombok:lombok:$lombokVersion"
-  testImplementation platform("org.junit:junit-bom:$junitBomVersion")
-  testImplementation 'org.junit.jupiter:junit-jupiter'
-}
-
-jar {
-  manifest {
-    attributes "Main-Class": "dev.tiltrikt.tetravex.Main"
+  dependencyManagement {
+    imports {
+      mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
+    }
   }
 }
 
-test {
-  useJUnitPlatform()
-}
+//jar {
+//  manifest {
+//    attributes "Main-Class": "dev.tiltrikt.tetravex.Main"
+//  }
+//}
+//
+//test {
+//  useJUnitPlatform()
+//}

@@ -1,0 +1,54 @@
+server:
+  port: 8099
+
+spring:
+  application:
+    name: api-gateway
+
+  profiles:
+    active: eureka
+
+  cloud:
+    gateway:
+      routes:
+        - id: rating-service
+          uri: lb://rating-service
+          predicates:
+            - Path=/api/*/rating/**
+
+        - id: score-service
+          uri: lb://score-service
+          predicates:
+            - Path=/api/*/score/**
+
+        - id: comment-service
+          uri: lb://comment-service
+          predicates:
+            - Path=/api/*/comment/**
+
+        - id: tetravex-service
+          uri: lb://tetravex-service
+          predicates:
+            - Path=/api/*/tetravex/**
+
+  main:
+    banner-mode: off
+    web-application-type: reactive
+
+springdoc:
+  swagger-ui:
+    enabled: true
+  api-docs:
+    enabled: true
+
+management:
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true
+
+  endpoints:
+    web:
+      exposure:
+        include: '*'

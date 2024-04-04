@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+
+spring:
+
+  profiles:
+    active: eureka, swagger
+
+  application:
+    name: tetravex-service
+
+  main:
+    banner-mode: off
+
+game:
+  max-field: 5
+  min-field: 1
+
+address:
+  score: "http://localhost:8099/api/v1/score"
+
+debug: true

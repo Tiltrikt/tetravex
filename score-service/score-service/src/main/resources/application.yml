@@ -1,0 +1,19 @@
+server:
+  port: 8082
+
+spring:
+
+  profiles:
+    active: eureka, swagger, commons-jpa
+
+  application:
+    name: score-service
+
+  main:
+    banner-mode: off
+
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tetravex
+    username: postgres
+    password: postgres

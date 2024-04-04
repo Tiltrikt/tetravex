@@ -74,7 +74,7 @@
         <mxCell id="94wXDUCEYR3FqO-PXqLH-33" value="+ play()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="94wXDUCEYR3FqO-PXqLH-30">
           <mxGeometry y="34" width="160" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="94wXDUCEYR3FqO-PXqLH-36" value="+ move()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="94wXDUCEYR3FqO-PXqLH-30">
+        <mxCell id="94wXDUCEYR3FqO-PXqLH-36" value="+ moveMakeRequest()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="94wXDUCEYR3FqO-PXqLH-30">
           <mxGeometry y="60" width="160" height="26" as="geometry" />
         </mxCell>
         <mxCell id="94wXDUCEYR3FqO-PXqLH-39" value="userInterface&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="94wXDUCEYR3FqO-PXqLH-26" target="94wXDUCEYR3FqO-PXqLH-30">

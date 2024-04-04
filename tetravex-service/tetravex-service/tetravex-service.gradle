@@ -1,0 +1,13 @@
+dependencies {
+  implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+  implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+  runtimeOnly "org.postgresql:postgresql:$postgresqlConnectorVersion"
+
+  implementation project(":tetravex-service:tetravex-service-rest-api")
+  implementation project(":score-service:score-service-rest-api")
+
+  implementation project(":commons:commons-core")
+  implementation project(":commons:commons-mapper")
+  implementation project(":commons:commons-rest")
+}

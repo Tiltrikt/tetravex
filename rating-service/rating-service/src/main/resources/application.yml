@@ -1,0 +1,18 @@
+server:
+  port: 8081
+
+spring:
+
+  profiles:
+    active: eureka, swagger, commons-jpa
+
+  application:
+    name: rating-service
+
+  main:
+    banner-mode: off
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tetravex
+    username: postgres
+    password: postgres
