@@ -1,8 +1,9 @@
 package dev.tiltrikt.tetravex.configuration;
 
-import dev.tiltrikt.tetravex.client.score.ScoreRestClient;
+import dev.tiltrikt.tetravex.client.rest.score.ScoreRestClient;
 import dev.tiltrikt.tetravex.dto.ScoreAddRequest;
 import dev.tiltrikt.tetravex.exception.GameIsWon;
+import dev.tiltrikt.tetravex.producer.ScoreProducer;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -24,12 +25,14 @@ public class GameExceptionHandler {
 
   @NotNull ScoreRestClient scoreRestClient;
 
+  @NotNull ScoreProducer scoreProducer;
+
   @NotNull
   @ExceptionHandler(GameIsWon.class)
   @ResponseStatus(HttpStatus.OK)
   public HttpEntity<String> gameIsWon(@NotNull GameIsWon ex) {
 
-    scoreRestClient.addScore(new ScoreAddRequest("tetravex", ex.getPoints(), Date.from(Instant.now())), ex.getPlayer());
+    scoreProducer.addScore(new ScoreAddRequest("tetravex", ex.getPoints(), Date.from(Instant.now())), ex.getPlayer());
     HttpHeaders header = new HttpHeaders();
     header.add("Win", "true");
     return new HttpEntity<>("You won game with " + ex.getPoints() + " points", header);

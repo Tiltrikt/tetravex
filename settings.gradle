@@ -16,7 +16,9 @@ rootProject.name = 'tetravex'
         'rating-service:rating-service-rest-api',
 
         'score-service:score-service',
+        'score-service:score-service-commons-api',
         'score-service:score-service-rest-api',
+        'score-service:score-service-kafka-api',
 
         'comment-service:comment-service',
         'comment-service:comment-service-rest-api',

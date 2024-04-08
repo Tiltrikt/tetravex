@@ -6,6 +6,7 @@ dependencies {
 
   implementation project(":tetravex-service:tetravex-service-rest-api")
   implementation project(":score-service:score-service-rest-api")
+  implementation project(":score-service:score-service-kafka-api")
 
   implementation project(":commons:commons-core")
   implementation project(":commons:commons-mapper")

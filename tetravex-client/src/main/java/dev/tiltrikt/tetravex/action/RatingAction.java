@@ -1,6 +1,6 @@
 package dev.tiltrikt.tetravex.action;
 
-import dev.tiltrikt.tetravex.client.rating.RatingRestClient;
+import dev.tiltrikt.tetravex.client.rest.rating.RatingRestClient;
 //import dev.tiltrikt.tetravex.configuration.CoreConfiguration;
 import dev.tiltrikt.tetravex.dto.RatingAddRequest;
 //import dev.tiltrikt.tetravex.exception.NoPlayerException;

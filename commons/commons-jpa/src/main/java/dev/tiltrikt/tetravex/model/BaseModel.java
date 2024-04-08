@@ -22,9 +22,11 @@ public abstract class BaseModel {
   @GeneratedValue(strategy = GenerationType.AUTO)
   int id;
 
-  @NotNull @Column(name = "game", nullable = false)
+  @NotNull
+  @Column(name = "game", nullable = false)
   String game;
 
-  @NotNull @Column(name = "player", nullable = false)
+  @NotNull
+  @Column(name = "player", nullable = false)
   String player;
 }

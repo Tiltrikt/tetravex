@@ -15,7 +15,7 @@ import java.util.Map;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class InputHandlerImpl implements InputHandler {
 
-  Map<String, Action> actionMap;
+  @NotNull Map<String, Action> actionMap;
 
   @NotNull RegexService regexService;
 

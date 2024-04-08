@@ -1,6 +1,6 @@
 package dev.tiltrikt.tetravex.action;
 
-import dev.tiltrikt.tetravex.client.game.GameRestClient;
+import dev.tiltrikt.tetravex.client.rest.game.GameRestClient;
 import dev.tiltrikt.tetravex.dto.FieldDto;
 import dev.tiltrikt.tetravex.dto.GameStartRequest;
 import dev.tiltrikt.tetravex.service.rendering.StringRenderingService;

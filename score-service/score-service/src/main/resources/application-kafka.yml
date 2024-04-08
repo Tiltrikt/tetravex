@@ -1,0 +1,14 @@
+spring:
+  kafka:
+    bootstrap-servers:
+      - localhost:9092
+    consumer:
+      group-id: test-group
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "dev.tiltrikt.tetravex.dto"
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer

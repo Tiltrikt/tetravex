@@ -1,7 +1,7 @@
 
 package dev.tiltrikt.tetravex.action;
 
-import dev.tiltrikt.tetravex.client.comment.CommentRestClient;
+import dev.tiltrikt.tetravex.client.rest.comment.CommentRestClient;
 import dev.tiltrikt.tetravex.dto.CommentAddRequest;
 import dev.tiltrikt.tetravex.dto.RatingDto;
 import dev.tiltrikt.tetravex.exception.CommentException;

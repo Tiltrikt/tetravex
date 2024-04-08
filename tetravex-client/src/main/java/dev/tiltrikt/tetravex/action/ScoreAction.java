@@ -1,6 +1,6 @@
 package dev.tiltrikt.tetravex.action;
 
-import dev.tiltrikt.tetravex.client.score.ScoreRestClient;
+import dev.tiltrikt.tetravex.client.rest.score.ScoreRestClient;
 import dev.tiltrikt.tetravex.dto.ScoreDto;
 import dev.tiltrikt.tetravex.exception.RatingException;
 import dev.tiltrikt.tetravex.service.rendering.StringRenderingService;
