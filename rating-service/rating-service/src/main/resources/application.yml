@@ -4,7 +4,7 @@ server:
 spring:
 
   profiles:
-    active: eureka, swagger, commons-jpa
+    active: eureka, swagger, commons-jpa, security
 
   application:
     name: rating-service
@@ -16,3 +16,4 @@ spring:
     url: jdbc:postgresql://localhost:5432/tetravex
     username: postgres
     password: postgres
+debug: true

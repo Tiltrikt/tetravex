@@ -42,7 +42,7 @@ public class RatingRestClientImpl implements RatingRestClient {
 
   public int getAverageRating(@NotNull String game) {
 
-    Integer rating = restTemplate.getForEntity(this.rating + "/average/" + game, Integer.class).getBody();
+    Integer rating = restTemplate.getForEntity(gateway + this.rating + "/average/" + game, Integer.class).getBody();
 
     if (rating == null) {
       throw new RestResponseException("Get average rating returned null");
@@ -51,6 +51,6 @@ public class RatingRestClientImpl implements RatingRestClient {
   }
 
   public void reset() {
-    restTemplate.delete(this.rating);
+    restTemplate.delete(gateway + this.rating);
   }
 }

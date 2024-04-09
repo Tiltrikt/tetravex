@@ -12,6 +12,8 @@ rootProject.name = 'tetravex'
         'commons:commons-jpa',
         'commons:commons-rest',
 
+        'security-service:security-service',
+
         'rating-service:rating-service',
         'rating-service:rating-service-rest-api',
 

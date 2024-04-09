@@ -31,6 +31,12 @@ spring:
           predicates:
             - Path=/api/*/tetravex/**
 
+        - id: security-service
+          uri: lb://security-service
+          predicates:
+            - Path=/api/*/authenticate/**
+            - Path=/api/*/register/**
+
   main:
     banner-mode: off
     web-application-type: reactive

@@ -12,9 +12,13 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/rating")
@@ -33,6 +37,7 @@ public class RatingController {
   @PutMapping
   public void setRating(@NotBlank @CookieValue("Player") String player, @Valid @RequestBody RatingAddRequest ratingAddRequest) {
 
+    log.info("Set rating request");
     Rating rating = mapper.map(ratingAddRequest, Rating.class);
     rating.setPlayer(player);
     ratingService.setRating(rating);
@@ -42,8 +47,9 @@ public class RatingController {
   @ApiResponse(responseCode = "200", description = "Average rating for this game",
       content = {@Content(mediaType = "application/json")})
   @GetMapping("average/{game}")
-  public int getAverageRating(@PathVariable String game) {
+  public int getAverageRating(@RequestHeader(HttpHeaders.AUTHORIZATION) String authenticate, @PathVariable String game) {
 
+    log.info(authenticate);
     return ratingService.getAverageRating(game);
   }
 

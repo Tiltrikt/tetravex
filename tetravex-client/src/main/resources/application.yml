@@ -5,13 +5,22 @@ spring:
   application:
     name: tetravex-client
 
+  profiles:
+    active: security
+
   main:
     banner-mode: off
     web-application-type: none
 
 address:
-  gateway: "http://localhost:8099"
+  gateway: "http://localhost:8081"
   tetravex: "/api/v1/tetravex"
   score: "/api/v1/score"
   comment: "/api/v1/comment"
   rating: "/api/v1/rating"
+
+debug: true
+
+logging:
+  level:
+    org.springframework.security.oauth2: DEBUG

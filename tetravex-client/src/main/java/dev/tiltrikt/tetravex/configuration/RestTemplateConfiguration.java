@@ -1,6 +1,7 @@
 package dev.tiltrikt.tetravex.configuration;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
@@ -17,7 +18,6 @@ public class RestTemplateConfiguration {
                                       @NotNull ResponseErrorHandler handler) {
     RestTemplate restTemplate = new RestTemplate();
     restTemplate.setInterceptors(interceptors);
-    restTemplate.setErrorHandler(handler);
     return restTemplate;
   }
 }
