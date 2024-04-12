@@ -7,7 +7,7 @@ dependencies {
   implementation project(":rating-service:rating-service-rest-api")
 
   implementation project(":commons:commons-core")
-  implementation project(":commons:commons-mapper")
+//  implementation project(":commons:commons-mapper")
   implementation project(":commons:commons-rest")
   implementation project(":commons:commons-jpa")
 }

@@ -25,6 +25,8 @@ allprojects {
 
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocVersion"
 
+    implementation "dev.tiltrikt:mapper-starter-spring:0.0.1-SNAPSHOT"
+
     testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
     testCompileOnly "org.projectlombok:lombok:$lombokVersion"
     testImplementation platform("org.junit:junit-bom:$junitBomVersion")

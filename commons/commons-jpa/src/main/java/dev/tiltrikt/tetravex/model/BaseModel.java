@@ -1,6 +1,7 @@
 package dev.tiltrikt.tetravex.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import dev.tiltrikt.mapper.core.annotation.FieldMapping;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -10,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Getter
 @Setter
+@ToString
 @SuperBuilder
 @MappedSuperclass
 @AllArgsConstructor
@@ -19,6 +21,7 @@ public abstract class BaseModel {
 
   @Id
   @JsonIgnore
+  @FieldMapping(ignore = true)
   @GeneratedValue(strategy = GenerationType.AUTO)
   int id;
 

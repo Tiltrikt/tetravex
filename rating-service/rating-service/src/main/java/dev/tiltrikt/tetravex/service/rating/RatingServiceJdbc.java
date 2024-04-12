@@ -44,7 +44,7 @@ public class RatingServiceJdbc implements RatingService {
     ) {
       statement.setString(1, rating.getGame());
       statement.setString(2, rating.getPlayer());
-      statement.setInt(3, rating.getRating());
+      statement.setInt(3, rating.getPoints());
       statement.executeUpdate();
     } catch (SQLException e) {
       throw new RatingException("Problem inserting rating", e);

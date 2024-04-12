@@ -18,6 +18,7 @@ public class RestTemplateConfiguration {
                                       @NotNull ResponseErrorHandler handler) {
     RestTemplate restTemplate = new RestTemplate();
     restTemplate.setInterceptors(interceptors);
+    restTemplate.setErrorHandler(handler);
     return restTemplate;
   }
 }

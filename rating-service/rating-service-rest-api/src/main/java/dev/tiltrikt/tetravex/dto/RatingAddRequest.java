@@ -20,5 +20,5 @@ public class RatingAddRequest {
   @Min(1)
   @Max(100)
   @NotNull(message = "Rating cannot be null")
-  Integer rating;
+  Integer points;
 }

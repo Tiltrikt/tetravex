@@ -6,13 +6,16 @@ import jakarta.validation.constraints.Min;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.DynamicUpdate;
 import org.jetbrains.annotations.NotNull;
 
 @Entity
 @Getter
 @Setter
 @SuperBuilder
+@DynamicUpdate
 @AllArgsConstructor
+@ToString(callSuper = true)
 @NoArgsConstructor(force = true)
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "rating", uniqueConstraints =
@@ -24,5 +27,5 @@ public class Rating extends BaseModel {
   @Column(name = "rating", nullable = false)
   @Min(1)
   @Max(100)
-  Integer rating;
+  Integer points;
 }

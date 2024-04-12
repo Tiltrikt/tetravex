@@ -1,6 +1,7 @@
 package dev.tiltrikt.tetravex.controller.v1;
 
-import com.github.dozermapper.core.Mapper;
+import dev.tiltrikt.mapper.core.Mapper;
+import dev.tiltrikt.mapper.core.MapperImpl;
 import dev.tiltrikt.tetravex.dto.RatingAddRequest;
 import dev.tiltrikt.tetravex.model.Rating;
 import dev.tiltrikt.tetravex.service.rating.RatingService;
@@ -15,7 +16,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -35,11 +40,10 @@ public class RatingController {
       @ApiResponse(responseCode = "400", description = "Wrong request")}
   )
   @PutMapping
-  public void setRating(@NotBlank @CookieValue("Player") String player, @Valid @RequestBody RatingAddRequest ratingAddRequest) {
+  public void setRating(@AuthenticationPrincipal Jwt jwt, @Valid @RequestBody RatingAddRequest ratingAddRequest) {
 
-    log.info("Set rating request");
     Rating rating = mapper.map(ratingAddRequest, Rating.class);
-    rating.setPlayer(player);
+    rating.setPlayer(jwt.getClaimAsString("name"));
     ratingService.setRating(rating);
   }
 
@@ -47,9 +51,8 @@ public class RatingController {
   @ApiResponse(responseCode = "200", description = "Average rating for this game",
       content = {@Content(mediaType = "application/json")})
   @GetMapping("average/{game}")
-  public int getAverageRating(@RequestHeader(HttpHeaders.AUTHORIZATION) String authenticate, @PathVariable String game) {
+  public int getAverageRating(@PathVariable String game) {
 
-    log.info(authenticate);
     return ratingService.getAverageRating(game);
   }
 
@@ -60,9 +63,9 @@ public class RatingController {
       @ApiResponse(responseCode = "400", description = "Wrong request")}
   )
   @GetMapping("{game}")
-  public int getRating(@PathVariable String game, @CookieValue("Player") String player) {
+  public int getRating(@AuthenticationPrincipal Jwt jwt, @PathVariable String game) {
 
-    return ratingService.getRating(game, player);
+    return ratingService.getRating(game, jwt.getClaimAsString("name"));
   }
 
   @Operation(summary = "Delete all ratings")

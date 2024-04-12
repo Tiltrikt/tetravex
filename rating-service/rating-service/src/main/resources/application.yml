@@ -16,4 +16,9 @@ spring:
     url: jdbc:postgresql://localhost:5432/tetravex
     username: postgres
     password: postgres
+
+  jpa:
+    show-sql: true
+
 debug: true
+
