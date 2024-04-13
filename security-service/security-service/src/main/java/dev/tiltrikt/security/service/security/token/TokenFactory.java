@@ -8,5 +8,5 @@ public interface TokenFactory {
 
   @NotNull String generateToken(@NotNull String username);
 
-  @NotNull Map<String, Object> generateJwks();
+  @NotNull Map<String, Object> getJwks();
 }

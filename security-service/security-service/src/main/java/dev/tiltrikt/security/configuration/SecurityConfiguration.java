@@ -30,16 +30,16 @@ public class SecurityConfiguration {
   @Bean
   AuthenticationProvider authenticationProvider(@NotNull UserDetailsService userDetailsService,
                                                 @NotNull PasswordEncoder passwordEncoder) {
-    DaoAuthenticationProvider authenticationProvider =
-        new DaoAuthenticationProvider(passwordEncoder);
+
+    DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider(passwordEncoder);
     authenticationProvider.setHideUserNotFoundExceptions(false);
     authenticationProvider.setUserDetailsService(userDetailsService);
     return authenticationProvider;
   }
 
   @Bean
-  AuthenticationManager authenticationManager(
-      @NotNull AuthenticationProvider authenticationProvider) {
+  AuthenticationManager authenticationManager(@NotNull AuthenticationProvider authenticationProvider) {
+
     ProviderManager providerManager = new ProviderManager(authenticationProvider);
     providerManager.setEraseCredentialsAfterAuthentication(false);
     return providerManager;
@@ -47,8 +47,9 @@ public class SecurityConfiguration {
 
   @Bean
   SecurityFilterChain securityFilterChain(@NotNull HttpSecurity http,
-                                          @NotNull AuthenticationManager authenticationManager
-  ) throws Exception {
+                                          @NotNull AuthenticationManager authenticationManager)
+      throws Exception {
+
     return http
         .sessionManagement(
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
