@@ -5,7 +5,13 @@ spring:
   application:
     name: security-service
 
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/tetravex
-#    username: postgres
-#    password: postgres
+  profiles:
+    active: dev, commons-jpa
+
+  main:
+    banner-mode: off
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tetravex
+    username: postgres
+    password: postgres

@@ -1,14 +1,17 @@
 dependencies {
-//  implementation "org.springframework.boot:spring-boot-starter-cache"
-//  implementation "org.springframework.boot:spring-boot-starter-security"
-//  implementation "com.github.ben-manes.caffeine:caffeine:$caffeineVersion"
-//  runtimeOnly "org.postgresql:postgresql:$postgresqlConnectorVersion"
-//
-//  implementation "io.jsonwebtoken:jjwt-impl:$jjwtVersion"
-//  implementation "io.jsonwebtoken:jjwt-api:$jjwtVersion"
-//  implementation "io.jsonwebtoken:jjwt-jackson:$jjwtVersion"
-//
+  implementation "org.springframework.boot:spring-boot-starter-cache"
+  implementation "org.springframework.boot:spring-boot-starter-security"
+  implementation "com.github.ben-manes.caffeine:caffeine:$caffeineVersion"
+  runtimeOnly "org.postgresql:postgresql:$postgresqlConnectorVersion"
+
+  implementation "io.jsonwebtoken:jjwt-impl:$jjwtVersion"
+  implementation "io.jsonwebtoken:jjwt-api:$jjwtVersion"
+  implementation "io.jsonwebtoken:jjwt-jackson:$jjwtVersion"
+  implementation "io.jsonwebtoken:jjwt-gson:$jjwtVersion"
+
+  implementation 'com.nimbusds:nimbus-jose-jwt:9.37.3'
+
   implementation project(":commons:commons-rest")
   implementation project(":commons:commons-core")
-//  implementation project(":commons:commons-jpa")
+  implementation project(":commons:commons-jpa")
 }
