@@ -1,4 +1,4 @@
-package dev.tiltrikt.tetravex.configuration;
+package dev.tiltrikt.commons.configuration;
 
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
 import com.github.dozermapper.core.Mapper;

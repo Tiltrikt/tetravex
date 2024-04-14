@@ -12,7 +12,6 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -27,12 +26,9 @@ public class RestRequestInterceptor implements ClientHttpRequestInterceptor {
 
   @Override
   public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
-
-    if (player.getName() == null) {
-      throw new NoPlayerException("Player was not set");
+    if (player.getJwt() != null) {
+      request.getHeaders().add(HttpHeaders.AUTHORIZATION, "Bearer " + player.getJwt());
     }
-    request.getHeaders().add(HttpHeaders.COOKIE, "Player=" + player.getName());
-
     return execution.execute(request, body);
   }
 }

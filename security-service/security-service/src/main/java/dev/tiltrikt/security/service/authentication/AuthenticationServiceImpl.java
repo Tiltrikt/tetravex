@@ -1,10 +1,10 @@
 package dev.tiltrikt.security.service.authentication;
 
-import dev.tiltrikt.security.api.request.AuthenticationRequest;
-import dev.tiltrikt.security.api.request.RegistrationRequest;
 import dev.tiltrikt.security.exception.user.UserAlreadyRegisteredException;
 import dev.tiltrikt.security.model.User;
 import dev.tiltrikt.security.service.user.UserService;
+import dev.tiltrikt.tetravex.dto.request.AuthenticationRequest;
+import dev.tiltrikt.tetravex.dto.request.RegistrationRequest;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

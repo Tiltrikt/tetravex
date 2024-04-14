@@ -3,15 +3,13 @@ dependencies {
   implementation "org.springframework.boot:spring-boot-starter-security"
   implementation "com.github.ben-manes.caffeine:caffeine:$caffeineVersion"
   runtimeOnly "org.postgresql:postgresql:$postgresqlConnectorVersion"
-
-  implementation "io.jsonwebtoken:jjwt-impl:$jjwtVersion"
-  implementation "io.jsonwebtoken:jjwt-api:$jjwtVersion"
-  implementation "io.jsonwebtoken:jjwt-jackson:$jjwtVersion"
-  implementation "io.jsonwebtoken:jjwt-gson:$jjwtVersion"
+  implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 
   implementation "com.nimbusds:nimbus-jose-jwt:$nimbusdsVersion"
 
   implementation project(":commons:commons-rest")
   implementation project(":commons:commons-core")
   implementation project(":commons:commons-jpa")
+
+  implementation project(":security-service:security-service-rest-api")
 }

@@ -1,4 +1,4 @@
-package dev.tiltrikt.tetravex.configuration;
+package dev.tiltrikt.commons.configuration;
 
 import dev.tiltrikt.commons.exception.GameException;
 import org.jetbrains.annotations.NotNull;

@@ -3,5 +3,5 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://localhost:9000/api/v1/key
-          jws-algorithms: RS512
+          jwk-set-uri: http://localhost:8099/api/v1/key
+          jws-algorithms: RS256

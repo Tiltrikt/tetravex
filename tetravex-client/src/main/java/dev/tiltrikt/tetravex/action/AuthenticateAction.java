@@ -6,6 +6,8 @@ package dev.tiltrikt.tetravex.action;
 //import dev.tiltrikt.tetravex.service.rating.RatingService;
 //import dev.tiltrikt.tetravex.service.regex.RegexService;
 //import dev.tiltrikt.tetravex.service.score.ScoreService;
+import dev.tiltrikt.tetravex.client.rest.authentication.AuthenticationRestClient;
+import dev.tiltrikt.tetravex.dto.request.AuthenticationRequest;
 import dev.tiltrikt.tetravex.player.Player;
 import dev.tiltrikt.tetravex.service.regex.RegexService;
 import dev.tiltrikt.tetravex.service.validation.ValidationService;
@@ -21,7 +23,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class PlayerAction implements Action {
+public class AuthenticateAction implements Action {
 
   @NotNull Player player;
 
@@ -29,12 +31,17 @@ public class PlayerAction implements Action {
 
   @NotNull RegexService regexService;
 
+  @NotNull AuthenticationRestClient authenticationRestClient;
+
   public @NotNull String doAction(@NotNull String input) {
 
     List<String> startList = regexService.getParameters(input);
-    validationService.validatePlayerInput(startList);
-    player.setName(startList.getFirst());
+    validationService.validateAuthenticationRequest(startList);
+    String jwt = authenticationRestClient
+        .authenticate(new AuthenticationRequest(startList.getFirst(), startList.getLast()))
+        .getToken();
+    player.setJwt(jwt);
 
-    return player.getName() + " have fun spending your time!\n";
+    return startList.getFirst() + " have fun spending your time!\n";
   }
 }

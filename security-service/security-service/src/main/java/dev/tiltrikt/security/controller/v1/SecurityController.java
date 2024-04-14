@@ -1,10 +1,10 @@
 package dev.tiltrikt.security.controller.v1;
 
-import dev.tiltrikt.security.api.request.AuthenticationRequest;
-import dev.tiltrikt.security.api.request.RegistrationRequest;
-import dev.tiltrikt.security.api.response.TokenResponse;
 import dev.tiltrikt.security.service.authentication.AuthenticationService;
 import dev.tiltrikt.security.service.security.token.TokenFactory;
+import dev.tiltrikt.tetravex.dto.request.AuthenticationRequest;
+import dev.tiltrikt.tetravex.dto.request.RegistrationRequest;
+import dev.tiltrikt.tetravex.dto.response.TokenResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

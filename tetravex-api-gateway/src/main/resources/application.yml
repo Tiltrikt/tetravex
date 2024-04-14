@@ -34,8 +34,8 @@ spring:
         - id: security-service
           uri: lb://security-service
           predicates:
-            - Path=/api/*/authenticate/**
-            - Path=/api/*/register/**
+            - Path=/api/*/register/**, /api/*/authenticate/**, /api/*/key/**
+
 
   main:
     banner-mode: off
@@ -58,3 +58,5 @@ management:
     web:
       exposure:
         include: '*'
+
+debug: true

@@ -1,8 +1,8 @@
 package dev.tiltrikt.security.service.authentication;
 
-import dev.tiltrikt.security.api.request.AuthenticationRequest;
-import dev.tiltrikt.security.api.request.RegistrationRequest;
 import dev.tiltrikt.security.exception.user.UserAlreadyRegisteredException;
+import dev.tiltrikt.tetravex.dto.request.AuthenticationRequest;
+import dev.tiltrikt.tetravex.dto.request.RegistrationRequest;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.security.core.AuthenticationException;
 

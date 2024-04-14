@@ -18,4 +18,6 @@ public interface ValidationService {
   void validateRatingInput(@NotNull List<String> list);
 
   void validateScoreInput(@NotNull List<String> list);
+
+  void validateAuthenticationRequest(@NotNull List<String> list);
 }

@@ -100,4 +100,11 @@ public class ValidationServiceImpl implements ValidationService {
     }
 
   }
+
+  @Override
+  public void validateAuthenticationRequest(@NotNull List<String> list) {
+    if (list.size() != 2) {
+      throw new InputException("Wrong number of parameters");
+    }
+  }
 }

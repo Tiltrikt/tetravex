@@ -12,5 +12,5 @@ import org.springframework.stereotype.Component;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Player {
 
-  String name;
+  String jwt;
 }

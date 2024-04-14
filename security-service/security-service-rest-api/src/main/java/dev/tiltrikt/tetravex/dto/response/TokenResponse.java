@@ -1,15 +1,13 @@
-package dev.tiltrikt.security.api.response;
+package dev.tiltrikt.tetravex.dto.response;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.jetbrains.annotations.NotNull;
 
 @Builder
 @Getter
 @RequiredArgsConstructor
+@NoArgsConstructor(force = true)
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class TokenResponse {
 

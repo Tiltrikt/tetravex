@@ -1,6 +1,7 @@
 package dev.tiltrikt.tetravex.ui;
 
 import dev.tiltrikt.tetravex.exception.ConnectionException;
+import dev.tiltrikt.tetravex.exception.UnauthorizedException;
 import dev.tiltrikt.tetravex.handler.InputHandler;
 import dev.tiltrikt.tetravex.service.console.ConsoleService;
 import dev.tiltrikt.commons.exception.GameException;
@@ -31,7 +32,6 @@ public class ConsoleUi implements UserInterface {
 
   @Override
   public void play() {
-
     while (true) {
       doAction();
     }

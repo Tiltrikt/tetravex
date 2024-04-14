@@ -6,7 +6,7 @@ spring:
     name: security-service
 
   profiles:
-    active: dev, commons-jpa
+    active: dev, commons-jpa, eureka
 
   main:
     banner-mode: off

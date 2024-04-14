@@ -1,4 +1,4 @@
-package dev.tiltrikt.security.api.request;
+package dev.tiltrikt.tetravex.dto.request;
 
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -1,10 +1,9 @@
 dependencies {
-  implementation "org.springframework.boot:spring-boot-starter-oauth2-client"
-
   implementation project(":commons:commons-core")
 
   implementation project(":rating-service:rating-service-rest-api")
   implementation project(":score-service:score-service-rest-api")
   implementation project(":comment-service:comment-service-rest-api")
   implementation project(":tetravex-service:tetravex-service-rest-api")
+  implementation project(":security-service:security-service-rest-api")
 }
