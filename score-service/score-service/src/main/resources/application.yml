@@ -4,7 +4,7 @@ server:
 spring:
 
   profiles:
-    active: eureka, swagger, commons-jpa, kafka
+    active: eureka, swagger, commons-jpa, kafka, security
 
   application:
     name: score-service

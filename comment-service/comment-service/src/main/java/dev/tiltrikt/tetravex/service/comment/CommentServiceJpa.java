@@ -6,6 +6,7 @@ import dev.tiltrikt.tetravex.repository.CommentRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,12 +23,12 @@ public class CommentServiceJpa implements CommentService {
   CommentRepository commentRepository;
 
   @Override
-  public void addComment(Comment comment) throws CommentException {
+  public void addComment(@NotNull Comment comment) throws CommentException {
     commentRepository.save(comment);
   }
 
   @Override
-  public List<Comment> getComments(String game) throws CommentException {
+  public @NotNull List<Comment> getComments(@NotNull String game) throws CommentException {
     return commentRepository.findAll();
   }
 

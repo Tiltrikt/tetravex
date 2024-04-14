@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface ScoreRepository extends JpaRepository<Score, Integer> {
 
-  @NotNull List<Score> findFirstByOrderByPointsDesc();
+  @NotNull List<Score> findFirst10ByOrderByPointsDesc();
 }

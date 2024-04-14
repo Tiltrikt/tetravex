@@ -16,6 +16,8 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,10 +39,10 @@ public class CommentController {
   )
 
   @PostMapping
-  public void addComment(@NotBlank @CookieValue("Player") String player, @Valid @RequestBody CommentAddRequest commentAddRequest) {
+  public void addComment(@AuthenticationPrincipal Jwt jwt, @Valid @RequestBody CommentAddRequest commentAddRequest) {
 
     Comment comment = mapper.map(commentAddRequest, Comment.class);
-    comment.setPlayer(player);
+    comment.setPlayer(jwt.getClaimAsString("name"));
     commentService.addComment(comment);
   }
 

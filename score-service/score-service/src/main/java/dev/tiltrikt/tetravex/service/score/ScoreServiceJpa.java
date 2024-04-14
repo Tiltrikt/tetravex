@@ -28,7 +28,7 @@ public class ScoreServiceJpa implements ScoreService {
 
   @Override
   public List<Score> getTopScores(String game) throws ScoreException {
-    return scoreRepository.findFirstByOrderByPointsDesc();
+    return scoreRepository.findFirst10ByOrderByPointsDesc();
   }
 
   @Override

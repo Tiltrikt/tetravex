@@ -4,7 +4,7 @@ server:
 spring:
 
   profiles:
-    active: eureka, swagger, commons-jpa
+    active: eureka, swagger, commons-jpa, security
 
   application:
     name: comment-service

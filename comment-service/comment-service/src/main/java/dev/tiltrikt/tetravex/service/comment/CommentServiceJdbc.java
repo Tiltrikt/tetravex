@@ -37,7 +37,7 @@ public class CommentServiceJdbc implements CommentService {
   }
 
   @Override
-  public void addComment(Comment comment) throws CommentException {
+  public void addComment(@NotNull Comment comment) throws CommentException {
     try (Connection connection = DriverManager.getConnection(
         configuration.getUrl(), configuration.getUsername(), configuration.getPassword());
          PreparedStatement statement = connection.prepareStatement(INSERT)
@@ -52,7 +52,7 @@ public class CommentServiceJdbc implements CommentService {
   }
 
   @Override
-  public List<Comment> getComments(String game) throws CommentException {
+  public @NotNull List<Comment> getComments(@NotNull String game) throws CommentException {
     try (Connection connection = DriverManager.getConnection(
         configuration.getUrl(), configuration.getUsername(), configuration.getPassword());
          PreparedStatement statement = connection.prepareStatement(SELECT)
