@@ -1,6 +1,5 @@
 package dev.tiltrikt.tetravex.client.rest;
 
-import dev.tiltrikt.tetravex.exception.NoPlayerException;
 import dev.tiltrikt.tetravex.player.Player;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

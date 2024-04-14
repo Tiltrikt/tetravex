@@ -1,7 +1,6 @@
 package dev.tiltrikt.tetravex.controller.v1;
 
 import dev.tiltrikt.mapper.core.Mapper;
-import dev.tiltrikt.mapper.core.MapperImpl;
 import dev.tiltrikt.tetravex.dto.RatingAddRequest;
 import dev.tiltrikt.tetravex.model.Rating;
 import dev.tiltrikt.tetravex.service.rating.RatingService;
@@ -10,16 +9,11 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 

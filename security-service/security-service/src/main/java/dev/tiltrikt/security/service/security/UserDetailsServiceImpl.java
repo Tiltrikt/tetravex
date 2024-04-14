@@ -1,6 +1,5 @@
 package dev.tiltrikt.security.service.security;
 
-import dev.tiltrikt.security.model.User;
 import dev.tiltrikt.security.service.user.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
