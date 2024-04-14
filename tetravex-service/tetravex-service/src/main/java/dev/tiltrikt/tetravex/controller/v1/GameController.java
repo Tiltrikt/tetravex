@@ -1,10 +1,7 @@
 package dev.tiltrikt.tetravex.controller.v1;
 
 import com.github.dozermapper.core.Mapper;
-import dev.tiltrikt.tetravex.dto.FieldDto;
-import dev.tiltrikt.tetravex.dto.GameStartRequest;
-import dev.tiltrikt.tetravex.dto.MoveMakeRequest;
-import dev.tiltrikt.tetravex.dto.TileDto;
+import dev.tiltrikt.tetravex.dto.*;
 import dev.tiltrikt.tetravex.model.Field;
 import dev.tiltrikt.tetravex.service.multiplayer.MultiplayerGameService;
 import jakarta.validation.Valid;
@@ -37,11 +34,14 @@ public class GameController {
         mapFieldToDto(multiplayerGameService.getPlayField(jwt.getClaimAsString("name"))));
   }
 
+
   @PutMapping("/replace")
-  public @NotNull List<FieldDto> replaceTile(@AuthenticationPrincipal Jwt jwt, @Valid @RequestBody MoveMakeRequest moveMakeRequest) {
+  public @NotNull TetravexResponse replaceTile(@AuthenticationPrincipal Jwt jwt, @Valid @RequestBody MoveMakeRequest moveMakeRequest) {
     multiplayerGameService.replaceTile(jwt.getClaimAsString("name"), moveMakeRequest);
-    return List.of(mapFieldToDto(multiplayerGameService.getGeneratedField(jwt.getClaimAsString("name"))),
-        mapFieldToDto(multiplayerGameService.getPlayField(jwt.getClaimAsString("name"))));
+    return TetravexResponse.builder()
+        .generatedField(mapFieldToDto(multiplayerGameService.getGeneratedField(jwt.getClaimAsString("name"))))
+        .playField(mapFieldToDto(multiplayerGameService.getPlayField(jwt.getClaimAsString("name"))))
+        .build();
   }
 
   @GetMapping("/generatedfield")

@@ -1,7 +1,7 @@
 package dev.tiltrikt.tetravex.action;
 
 import dev.tiltrikt.tetravex.client.rest.game.GameRestClient;
-import dev.tiltrikt.tetravex.dto.FieldDto;
+import dev.tiltrikt.tetravex.dto.TetravexResponse;
 import dev.tiltrikt.tetravex.factory.MoveRequestFactory;
 import dev.tiltrikt.tetravex.service.rendering.StringRenderingService;
 import dev.tiltrikt.tetravex.dto.MoveMakeRequest;
@@ -16,6 +16,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
+@SuppressWarnings("DataFlowIssue")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class MoveAction implements Action {
 
@@ -31,8 +32,10 @@ public class MoveAction implements Action {
 
     List<String> actionList = regexService.getMoveParameters(input);
     MoveMakeRequest moveMakeRequest = moveRequestFactory.convertListToMoveRequest(actionList);
-    List<FieldDto> fields = gameRestClient.replaceTile(moveMakeRequest);
-
-    return stringRenderingService.renderFields(fields.getFirst(), fields.getLast());
+    TetravexResponse response = gameRestClient.replaceTile(moveMakeRequest);
+    if (response.isWin()) {
+      return String.format("You won game with %d points", response.getScore());
+    }
+    return stringRenderingService.renderFields(response.getGeneratedField(), response.getPlayField());
   }
 }

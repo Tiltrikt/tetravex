@@ -21,9 +21,7 @@ public class SecurityConfiguration {
         .csrf(AbstractHttpConfigurer::disable)
         .cors(AbstractHttpConfigurer::disable)
         .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
-        .authorizeHttpRequests(registry -> registry
-            .requestMatchers("/api/v1/rating/average/{game}").permitAll()
-            .anyRequest().authenticated())
+        .authorizeHttpRequests(registry -> registry.anyRequest().authenticated())
         .build();
   }
 }

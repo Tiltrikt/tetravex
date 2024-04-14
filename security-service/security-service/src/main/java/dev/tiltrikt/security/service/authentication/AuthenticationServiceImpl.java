@@ -1,5 +1,6 @@
 package dev.tiltrikt.security.service.authentication;
 
+import dev.tiltrikt.security.exception.MyAuthenticationException;
 import dev.tiltrikt.security.exception.user.UserAlreadyRegisteredException;
 import dev.tiltrikt.security.model.User;
 import dev.tiltrikt.security.service.user.UserService;
@@ -30,13 +31,17 @@ public class AuthenticationServiceImpl implements AuthenticationService {
   @NotNull PasswordEncoder passwordEncoder;
 
   @Override
-  public void authenticate(@NotNull AuthenticationRequest request) throws AuthenticationException {
+  public void authenticate(@NotNull AuthenticationRequest request) {
     Authentication authentication = new UsernamePasswordAuthenticationToken(
         request.getUsername(),
         request.getPassword()
     );
 
-    authenticationManager.authenticate(authentication);
+    try {
+      authenticationManager.authenticate(authentication);
+    } catch (AuthenticationException exception) {
+      throw new MyAuthenticationException(exception.getMessage());
+    }
   }
 
   @Override

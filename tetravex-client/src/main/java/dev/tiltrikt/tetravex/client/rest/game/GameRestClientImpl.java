@@ -3,6 +3,7 @@ package dev.tiltrikt.tetravex.client.rest.game;
 import dev.tiltrikt.tetravex.dto.FieldDto;
 import dev.tiltrikt.tetravex.dto.GameStartRequest;
 import dev.tiltrikt.tetravex.dto.MoveMakeRequest;
+import dev.tiltrikt.tetravex.dto.TetravexResponse;
 import dev.tiltrikt.tetravex.exception.RestResponseException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -45,16 +46,17 @@ public class GameRestClientImpl implements GameRestClient {
     return fields;
   }
 
+
   @Override
-  public @NotNull List<FieldDto> replaceTile(@NotNull MoveMakeRequest moveMakeRequest) {
+  public @NotNull TetravexResponse replaceTile(@NotNull MoveMakeRequest moveMakeRequest) {
 
-    List<FieldDto> fields = restTemplate.exchange(gateway + game + "/replace", HttpMethod.PUT, new HttpEntity<>(moveMakeRequest),
-        new ParameterizedTypeReference<List<FieldDto>>() {}).getBody();
+    TetravexResponse response = restTemplate.exchange(gateway + game + "/replace", HttpMethod.PUT, new HttpEntity<>(moveMakeRequest),
+        TetravexResponse.class).getBody();
 
-    if (fields == null) {
-      throw new RestResponseException("Get rating returned null");
+    if (response == null) {
+      throw new RestResponseException("Error returning fields");
     }
-    return fields;
+    return response;
   }
 
   @Override
