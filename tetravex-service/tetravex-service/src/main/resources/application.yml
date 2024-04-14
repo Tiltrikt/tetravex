@@ -5,7 +5,7 @@ server:
 spring:
 
   profiles:
-    active: eureka, swagger, kafka
+    active: eureka, swagger, kafka, security
 
   application:
     name: tetravex-service

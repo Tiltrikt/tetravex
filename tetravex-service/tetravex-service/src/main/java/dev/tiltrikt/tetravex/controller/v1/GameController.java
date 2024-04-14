@@ -8,11 +8,12 @@ import dev.tiltrikt.tetravex.dto.TileDto;
 import dev.tiltrikt.tetravex.model.Field;
 import dev.tiltrikt.tetravex.service.multiplayer.MultiplayerGameService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,30 +30,30 @@ public class GameController {
   @NotNull Mapper mapper;
 
   @PutMapping("/start")
-  public @NotNull List<FieldDto> startGame(@NotBlank @CookieValue("Player") String player, @Valid @RequestBody GameStartRequest gameStartRequest) {
+  public @NotNull List<FieldDto> startGame(@AuthenticationPrincipal Jwt jwt, @Valid @RequestBody GameStartRequest gameStartRequest) {
 
-    multiplayerGameService.startGame(player, gameStartRequest);
-    return List.of(mapFieldToDto(multiplayerGameService.getGeneratedField(player)),
-        mapFieldToDto(multiplayerGameService.getPlayField(player)));
+    multiplayerGameService.startGame(jwt.getClaimAsString("name"), gameStartRequest);
+    return List.of(mapFieldToDto(multiplayerGameService.getGeneratedField(jwt.getClaimAsString("name"))),
+        mapFieldToDto(multiplayerGameService.getPlayField(jwt.getClaimAsString("name"))));
   }
 
   @PutMapping("/replace")
-  public @NotNull List<FieldDto> replaceTile(@NotBlank @CookieValue("Player") String player, @Valid @RequestBody MoveMakeRequest moveMakeRequest) {
-    multiplayerGameService.replaceTile(player, moveMakeRequest);
-    return List.of(mapFieldToDto(multiplayerGameService.getGeneratedField(player)),
-        mapFieldToDto(multiplayerGameService.getPlayField(player)));
+  public @NotNull List<FieldDto> replaceTile(@AuthenticationPrincipal Jwt jwt, @Valid @RequestBody MoveMakeRequest moveMakeRequest) {
+    multiplayerGameService.replaceTile(jwt.getClaimAsString("name"), moveMakeRequest);
+    return List.of(mapFieldToDto(multiplayerGameService.getGeneratedField(jwt.getClaimAsString("name"))),
+        mapFieldToDto(multiplayerGameService.getPlayField(jwt.getClaimAsString("name"))));
   }
 
   @GetMapping("/generatedfield")
-  public @NotNull FieldDto getGeneratedField(@NotBlank @CookieValue("Player") String player) {
-    Field field = multiplayerGameService.getGeneratedField(player);
+  public @NotNull FieldDto getGeneratedField(@AuthenticationPrincipal Jwt jwt) {
+    Field field = multiplayerGameService.getGeneratedField(jwt.getClaimAsString("name"));
     return mapFieldToDto(field);
   }
 
   @GetMapping("/playfield")
-  public @NotNull FieldDto getPlayField(@NotBlank @CookieValue("Player") String player) {
+  public @NotNull FieldDto getPlayField(@AuthenticationPrincipal Jwt jwt) {
 
-    Field field = multiplayerGameService.getPlayField(player);
+    Field field = multiplayerGameService.getPlayField(jwt.getClaimAsString("name"));
     return mapFieldToDto(field);
   }
 
