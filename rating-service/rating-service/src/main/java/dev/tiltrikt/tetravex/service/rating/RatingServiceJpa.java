@@ -32,7 +32,8 @@ public class RatingServiceJpa implements RatingService {
 
   @Override
   public int getAverageRating(String game) {
-    return ratingRepository.getAverageRating(game);
+    Integer rating = ratingRepository.getAverageRating(game);
+    return rating == null ? 0 : rating;
   }
 
   @Override

@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface RatingRepository extends JpaRepository<Rating, Integer> {
 
   @Query(value = "SELECT ROUND(AVG(r.rating)) FROM rating AS r WHERE r.game = ?", nativeQuery = true)
-  int getAverageRating(@Param("game") @NotNull String game);
+  Integer getAverageRating(@Param("game") @NotNull String game);
 
   @NotNull Optional<Rating> findByGameAndPlayer(@NotNull String game, @NotNull String player);
 }
