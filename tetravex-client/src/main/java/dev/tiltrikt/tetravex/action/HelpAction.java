@@ -13,7 +13,8 @@ public class HelpAction implements Action {
 
     usageInfo.append("**Usage Info:**\n");
     usageInfo.append("* `help` - Shows this information.\n");
-    usageInfo.append("* `player <name>` - Set player with the specified name.\n");
+    usageInfo.append("* `register <name> <password>` - Register new player.\n");
+    usageInfo.append("* `authenticate <name> <password>` - Authenticate player.\n");
     usageInfo.append("* `start <size>` - Starts a new game with the specified size.\n");
     usageInfo.append("* `move (FROM)<field[above/down] row column> (TO)<field row column>` - MoveMakeRequest a tile from one field to another.\n");
     usageInfo.append("* `comment [add + comment / get / reset]` - Add, get, or reset a comment.\n");

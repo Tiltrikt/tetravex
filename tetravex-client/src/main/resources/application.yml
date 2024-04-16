@@ -6,7 +6,7 @@ spring:
     name: tetravex-client
 
   profiles:
-    active: security
+    active:
 
   main:
     banner-mode: off

@@ -31,21 +31,22 @@ public class AuthenticationServiceImpl implements AuthenticationService {
   @NotNull PasswordEncoder passwordEncoder;
 
   @Override
-  public void authenticate(@NotNull AuthenticationRequest request) {
+  public @NotNull Authentication authenticate(@NotNull AuthenticationRequest request) {
     Authentication authentication = new UsernamePasswordAuthenticationToken(
         request.getUsername(),
         request.getPassword()
     );
 
     try {
-      authenticationManager.authenticate(authentication);
+      return authenticationManager.authenticate(authentication);
     } catch (AuthenticationException exception) {
       throw new MyAuthenticationException(exception.getMessage());
     }
   }
 
+  @NotNull
   @Override
-  public void register(@NotNull RegistrationRequest request) throws UserAlreadyRegisteredException {
+  public Authentication register(@NotNull RegistrationRequest request) throws UserAlreadyRegisteredException {
     userService.getUserOptional(request.getUsername())
         .ifPresent(user -> {
           throw new UserAlreadyRegisteredException(
@@ -56,12 +57,17 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     String encodedPassword = passwordEncoder.encode(request.getPassword());
 
-    User user = userService.save(
+    userService.save(
         User.builder()
             .username(request.getUsername())
             .password(encodedPassword)
             .build()
     );
-    log.debug("Registered user with id: {}, username: {}", user.getId(), user.getUsername());
+
+    Authentication authentication = new UsernamePasswordAuthenticationToken(
+        request.getUsername(),
+        request.getPassword()
+    );
+    return authenticationManager.authenticate(authentication);
   }
 }

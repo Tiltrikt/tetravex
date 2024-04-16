@@ -15,10 +15,9 @@ import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -37,10 +36,10 @@ public class ScoreController {
       @ApiResponse(responseCode = "400", description = "Wrong request")}
   )
   @PostMapping
-  public void addScore(@AuthenticationPrincipal Jwt jwt, @Valid @RequestBody ScoreAddRequest scoreAddRequest) {
+  public void addScore(Principal principal, @Valid @RequestBody ScoreAddRequest scoreAddRequest) {
 
     Score score = mapper.map(scoreAddRequest, Score.class);
-    score.setPlayer(jwt.getClaimAsString("name"));
+    score.setPlayer(principal.getName());
     scoreService.addScore(score);
   }
 

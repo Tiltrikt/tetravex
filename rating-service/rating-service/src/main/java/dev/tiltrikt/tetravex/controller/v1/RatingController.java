@@ -13,9 +13,9 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @Slf4j
 @RestController
@@ -34,10 +34,10 @@ public class RatingController {
       @ApiResponse(responseCode = "400", description = "Wrong request")}
   )
   @PutMapping
-  public void setRating(@AuthenticationPrincipal Jwt jwt, @Valid @RequestBody RatingAddRequest ratingAddRequest) {
+  public void setRating(Principal principal, @Valid @RequestBody RatingAddRequest ratingAddRequest) {
 
     Rating rating = mapper.map(ratingAddRequest, Rating.class);
-    rating.setPlayer(jwt.getClaimAsString("name"));
+    rating.setPlayer(principal.getName());
     ratingService.setRating(rating);
   }
 
@@ -57,9 +57,9 @@ public class RatingController {
       @ApiResponse(responseCode = "400", description = "Wrong request")}
   )
   @GetMapping("{game}")
-  public int getRating(@AuthenticationPrincipal Jwt jwt, @PathVariable String game) {
+  public int getRating(Principal principal, @PathVariable String game) {
 
-    return ratingService.getRating(game, jwt.getClaimAsString("name"));
+    return ratingService.getRating(game, principal.getName());
   }
 
   @Operation(summary = "Delete all ratings")

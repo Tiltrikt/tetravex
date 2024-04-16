@@ -4,14 +4,15 @@ import dev.tiltrikt.security.model.User;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Collections;
 
+@Slf4j
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public final class UserDetailsImpl implements UserDetails {
@@ -20,16 +21,19 @@ public final class UserDetailsImpl implements UserDetails {
 
   @Override
   public @NotNull @Unmodifiable Collection<? extends GrantedAuthority> getAuthorities() {
-    return Collections.emptyList();
+    log.info("authorities list");
+    return user.getAuthoritiesList();
   }
 
   @Override
   public @NotNull String getPassword() {
+    log.info("password");
     return user.getPassword();
   }
 
   @Override
   public @NotNull String getUsername() {
+    log.info("username");
     return user.getUsername();
   }
 

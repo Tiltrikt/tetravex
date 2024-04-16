@@ -22,3 +22,6 @@ spring:
 
 debug: true
 
+logging:
+  level:
+    web: debug

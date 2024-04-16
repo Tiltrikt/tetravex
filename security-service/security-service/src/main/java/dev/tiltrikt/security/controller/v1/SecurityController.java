@@ -10,8 +10,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -28,21 +31,26 @@ public class SecurityController {
   @PostMapping("/authenticate")
   public TokenResponse authenticate(@NotNull @RequestBody AuthenticationRequest request) {
 
-    authenticationService.authenticate(request);
-    String token = tokenFactory.generateToken(request.getUsername());
+    log.info("authenticate");
+    Authentication authentication = authenticationService.authenticate(request);
+    List<String> authorities = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
+    String token = tokenFactory.generateToken(request.getUsername(), authorities);
     return new TokenResponse(token);
   }
 
   @PostMapping("/register")
   public TokenResponse register(@NotNull @RequestBody RegistrationRequest request) {
 
-    authenticationService.register(request);
-    String token = tokenFactory.generateToken(request.getUsername());
+    log.info("register");
+    Authentication authentication = authenticationService.register(request);
+    List<String> authorities = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
+    String token = tokenFactory.generateToken(request.getUsername(), authorities);
     return new TokenResponse(token);
   }
 
   @GetMapping("/key")
   public Map<String, Object> publicKey() {
+    log.info("key set");
     return tokenFactory.getJwks();
   }
 }

@@ -18,8 +18,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.security.interfaces.RSAPublicKey;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 @Primary
 @Service
@@ -35,11 +34,12 @@ public class NimbusdsJwtService implements TokenFactory {
 
   @Override
   @SneakyThrows
-  public @NotNull String generateToken(@NotNull String username) {
+  public @NotNull String generateToken(@NotNull String username, @NotNull List<String> authorities) {
 
     JWSSigner signer = new RSASSASigner(myKeyFactory.getPrivateKey());
     JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
-        .claim("name", username)
+        .subject(username)
+        .claim("ath", String.join(" ", authorities))
         .issueTime(new Date(System.currentTimeMillis()))
         .expirationTime(new Date(System.currentTimeMillis() + lifetime))
         .build();

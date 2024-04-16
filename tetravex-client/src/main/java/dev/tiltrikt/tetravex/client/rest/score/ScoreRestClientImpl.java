@@ -9,6 +9,7 @@ import lombok.experimental.NonFinal;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -32,7 +33,7 @@ public class ScoreRestClientImpl implements ScoreRestClient {
 
   public @NotNull List<ScoreDto> getTopScores(@NotNull String game) {
 
-    List<ScoreDto> scoreList = restTemplate.exchange(gateway + score + "/" + game, HttpMethod.GET, null,
+    List<ScoreDto> scoreList = restTemplate.exchange(gateway + score + "/" + game, HttpMethod.GET, HttpEntity.EMPTY,
         new ParameterizedTypeReference<List<ScoreDto>>() {}).getBody();
 
     if (scoreList == null) {

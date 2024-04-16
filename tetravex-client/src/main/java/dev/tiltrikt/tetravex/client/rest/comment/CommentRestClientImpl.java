@@ -10,6 +10,7 @@ import lombok.experimental.NonFinal;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -37,7 +38,7 @@ public class CommentRestClientImpl implements CommentRestClient {
 
   public @NotNull List<RatingDto> getComments(@NotNull String game) {
 
-    List<RatingDto> commentList = restTemplate.exchange(gateway + comment + "/" + game, HttpMethod.GET, null,
+    List<RatingDto> commentList = restTemplate.exchange(gateway + comment + "/" + game, HttpMethod.GET, HttpEntity.EMPTY,
         new ParameterizedTypeReference<List<RatingDto>>() {}).getBody();
 
     if (commentList == null) {
